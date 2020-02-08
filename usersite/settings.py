@@ -26,7 +26,7 @@ SECRET_KEY = '7k&6y63r*p@m%9tn3m&buelbitl&%@&%^6(rgnnv4e_dq0ii$^'
 DEBUG = True
 PRODUCTION = False
 
-ALLOWED_HOSTS = ['127.0.0.1']
+ALLOWED_HOSTS = ['127.0.0.1', 'https://simpleweddingmovement.herokuapp.com/']
 
 
 # Application definition
@@ -51,7 +51,12 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware', #<- Static on Heroku
 ]
+
+# Finally, if you’d like gzip functionality enabled, also add the following
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
 
 ROOT_URLCONF = 'usersite.urls'
 
