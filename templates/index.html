@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>Simple wedding Movement | Content Repository</title>
+
+  <!-- Bootstrap core CSS -->
+  <!-- <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet"> -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-158060116-1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-158060116-1');
+  </script>
+
+</head>
+
+<body>
+
+  <!-- Navigation -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark static-top">
+    <div class="container">
+      <a class="navbar-brand" href="#">Simple Wedding Movement</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item active">
+            <!-- <a class="nav-link" href="http://www.khalifatullahmehdi.info/elibrary.asp">Khalifatullah Mehdi
+              <span class="sr-only">(current)</span>
+            </a> -->
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Page Content -->
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12 text-center">
+        <h1 class="mt-5">Your Guide to a Simple Wedding</h1>
+        <p class="lead">When Wedding are simple, life becomes easy.</p>
+        <ul class="list-unstyled">
+          <li><a href="tel:+918008245395">Call us</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="list-group">
+    {% for link in links %}
+    <a href="{{link.link}}" class="list-group-item list-group-item-action flex-column align-items-start ">
+      <div class="d-flex w-100 justify-content-between">
+        <h5 class="mb-1">{{link.title}}</h5>
+        <small></small>
+      </div>
+      <p class="mb-1">{{link.detail}}.</p>
+      <small>By {{link.user}}</small>
+    </a>
+
+    {% empty %}
+    <a href="" class="list-group-item list-group-item-action flex-column align-items-start active">
+      <div class="d-flex w-100 justify-content-between">
+        <h5 class="mb-1">Whatsapp Group</h5>
+        <small>Join 100+ People</small>
+      </div>
+      <p class="mb-1"></p>
+      <small>Take part in our daily Discussion and learn more about why wedding needs to be simple.</small>
+    </a>
+    {% endfor %}
+
+<!--     <a href="http://www.khalifatullahmehdi.info/elibrary.asp" class="list-group-item list-group-item-action flex-column align-items-start ">
+      <div class="d-flex w-100 justify-content-between">
+        <h5 class="mb-1">How to plan a simple wedding</h5>
+        <small>Article</small>
+      </div>
+      <p class="mb-1">A complete guide to planning, executing and managing a small wedding, including Budgeting, Preparing Guest list, and creating a schedule.</p>
+      <small>By Yousuf Taha.</small>
+    </a>
+    <a href="http://www.khalifatullahmehdi.info/elibrary.asp" class="list-group-item list-group-item-action flex-column align-items-start ">
+      <div class="d-flex w-100 justify-content-between">
+        <h5 class="mb-1">Conviencing your family to plan a simple wedding</h5>
+        <small>Audio Podcast</small>
+      </div>
+      <p class="mb-1">Talking to elders of your family can be tricky. This Article provides context to educate yourself, and your relatives on the matter of small weddings</p>
+      <small>By Shafi Mehdi</small></small>
+    </a>
+    <a href="http://www.khalifatullahmehdi.info/elibrary.asp" class="list-group-item list-group-item-action flex-column align-items-start ">
+      <div class="d-flex w-100 justify-content-between">
+        <h5 class="mb-1">Simple Weddings can help you earn up to 21,78,510 Rupees</h5>
+        <small>Youtube Video</small>
+      </div>
+      <p class="mb-1">Learn how by simple weddings change your position from being in debt to being relatively Wealthy</p>
+      <small>By Ali Khundmiri.</small>
+    </a>
+    <a href="" class="list-group-item list-group-item-action flex-column align-items-start active">
+      <div class="d-flex w-100 justify-content-between">
+        <h5 class="mb-1">Whatsapp Group</h5>
+        <small>Join 100+ People</small>
+      </div>
+      <p class="mb-1"></p>
+      <small>Take part in our daily Discussion and learn more about why wedding needs to be simple.</small>
+    </a>
+    <a href="http://www.khalifatullahmehdi.info/elibrary.asp" class="list-group-item list-group-item-action flex-column align-items-start ">
+      <div class="d-flex w-100 justify-content-between">
+        <h5 class="mb-1">How to avoid Shirk with Simple weddings</h5>
+        <small>Article</small>
+      </div>
+      <p class="mb-1">Shirk is easy to commit. Here's how you can avoid it, with simple weddings</p>
+      <small>By Akram Mehdi.</small>
+    </a>
+    <a href="http://www.khalifatullahmehdi.info/elibrary.asp" class="list-group-item list-group-item-action flex-column align-items-start ">
+      <div class="d-flex w-100 justify-content-between">
+        <h5 class="mb-1">Why Mehdi Alayhis salam would have been again Extravagent weddings</h5>
+        <small>Youtube Video</small>
+      </div>
+      <p class="mb-1">Mehdi AHS practices simple life, and spend most of his (AHS) life worshiping Allah. Here's why he would be angry at us today.</p>
+      <small>By Waqas Abdullah</small>
+    </a>
+    <a href="http://www.khalifatullahmehdi.info/elibrary.asp" class="list-group-item list-group-item-action flex-column align-items-start ">
+      <div class="d-flex w-100 justify-content-between">
+        <h5 class="mb-1">Calculate you Mahr</h5>
+        <small>App</small>
+      </div>
+      <p class="mb-1">A simple app to calculate your Mahr.</p>
+      <small>By Shama Hidayath</small>
+    </a> -->
+  </div>
+  <!-- Bootstrap core JavaScript -->
+  <!-- <script src="vendor/jquery/jquery.slim.min.js"></script> -->
+  <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+
+  <!-- <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script> -->
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+
+
+</body>
+
+</html>
