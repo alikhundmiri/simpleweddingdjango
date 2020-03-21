@@ -26,7 +26,10 @@ SECRET_KEY = '7k&6y63r*p@m%9tn3m&buelbitl&%@&%^6(rgnnv4e_dq0ii$^'
 DEBUG = True
 PRODUCTION = False
 
-ALLOWED_HOSTS = ['127.0.0.1', 'https://simpleweddingmovement.herokuapp.com/']
+ALLOWED_HOSTS = [
+'127.0.0.1',
+'simpleweddingmovement.herokuapp.com',
+]
 
 
 # Application definition
