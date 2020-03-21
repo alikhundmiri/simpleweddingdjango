@@ -23,12 +23,14 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '7k&6y63r*p@m%9tn3m&buelbitl&%@&%^6(rgnnv4e_dq0ii$^'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 PRODUCTION = False
 
 ALLOWED_HOSTS = [
 '127.0.0.1',
 'simpleweddingmovement.herokuapp.com',
+'http://simpleweddingmovement.herokuapp.com',
+'https://simpleweddingmovement.herokuapp.com',
 ]
 
 
