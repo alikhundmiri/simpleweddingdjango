@@ -29,8 +29,6 @@ PRODUCTION = False
 ALLOWED_HOSTS = [
 '127.0.0.1',
 'simpleweddingmovement.herokuapp.com',
-'http://simpleweddingmovement.herokuapp.com',
-'https://simpleweddingmovement.herokuapp.com',
 ]
 
 
@@ -109,9 +107,9 @@ DATABASES = {
 }
 
 import dj_database_url
-db_from_env = dj_database_url.config(conn_max_age=500)
+db_from_env = dj_database_url.config()
 DATABASES['default'].update(db_from_env)
-
+DATABASES['default']['CONN_MAX_AGE'] = 500
 
 # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators
@@ -157,6 +155,8 @@ STATICFILES_DIRS = [
 ]
 # Server emmumator. One up DIR
 STATIC_ROOT = os.path.join(os.path.dirname(BASE_DIR), "static_cdn")
+
+STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
 
 MEDIA_URL = "/media_cdn/"
 MEDIA_ROOT = os.path.join(os.path.dirname(BASE_DIR), "media_cdn")
