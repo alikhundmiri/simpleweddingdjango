@@ -24,9 +24,18 @@
     gtag('config', 'UA-158060116-1');
   </script>
 
+  <style type="text/css">
+    .link-box{
+      background-color: #FFFFFF;
+    }
+    .extra-text{
+      color: #A8A8A8;
+    }
+
+  </style>
 </head>
 
-<body>
+<body style="background-color: #CCEAD4">
 
   <!-- Navigation -->
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark static-top">
@@ -51,7 +60,7 @@
   <div class="container">
     <div class="row">
       <div class="col-lg-12 text-center">
-        <h1 class="mt-5">Your Guide to a Simple Wedding</h1>
+        <h1 class="mt-5" style="color: #565656">Your Guide to a Simple Wedding</h1>
         <p class="lead">When Wedding are simple, life becomes easy.</p>
         <ul class="list-unstyled">
           <li><a href="tel:+918008245395">Call us</a></li>
@@ -60,85 +69,35 @@
     </div>
   </div>
 
-  <div class="list-group">
-    {% for link in links %}
-    <a href="{{link.link}}" class="list-group-item list-group-item-action flex-column align-items-start ">
-      <div class="d-flex w-100 justify-content-between">
-        <h5 class="mb-1">{{link.title}}</h5>
-        <small></small>
-      </div>
-      <p class="mb-1">{{link.detail}}.</p>
-      <small>By {{link.user}}</small>
-    </a>
+  <section class="col-lg-6 offset-lg-3 col-sm-12 col-md-12">
+    <div class="list-group list-group-flush">
+      {% for link in links %}
+      <a href="{{link.link}}" class="link-box list-group-item list-group-item-action flex-column align-items-start">
+        <div class="d-flex w-100 justify-content-between">
+          <h5 class="mb-1">{{link.title}}</h5>
+          <small class="extra-text">{{link.catagory}}</small>
+        </div>
+        <!-- <small class="float-right"><br>{{link.timestamp|timesince}} ago</small> -->
+        <p class="mb-1">{{link.detail}}.</p>
+        <div class="d-flex w-100 justify-content-between">
+          <small class="extra-text">By {{link.user}}</small>
+          <small class="extra-text">{{link.timestamp|timesince}} ago</small>
+        </div>
+        
+      </a>
 
-    {% empty %}
-    <a href="" class="list-group-item list-group-item-action flex-column align-items-start active">
-      <div class="d-flex w-100 justify-content-between">
-        <h5 class="mb-1">Whatsapp Group</h5>
-        <small>Join 100+ People</small>
-      </div>
-      <p class="mb-1"></p>
-      <small>Take part in our daily Discussion and learn more about why wedding needs to be simple.</small>
-    </a>
-    {% endfor %}
-
-<!--     <a href="http://www.khalifatullahmehdi.info/elibrary.asp" class="list-group-item list-group-item-action flex-column align-items-start ">
-      <div class="d-flex w-100 justify-content-between">
-        <h5 class="mb-1">How to plan a simple wedding</h5>
-        <small>Article</small>
-      </div>
-      <p class="mb-1">A complete guide to planning, executing and managing a small wedding, including Budgeting, Preparing Guest list, and creating a schedule.</p>
-      <small>By Yousuf Taha.</small>
-    </a>
-    <a href="http://www.khalifatullahmehdi.info/elibrary.asp" class="list-group-item list-group-item-action flex-column align-items-start ">
-      <div class="d-flex w-100 justify-content-between">
-        <h5 class="mb-1">Conviencing your family to plan a simple wedding</h5>
-        <small>Audio Podcast</small>
-      </div>
-      <p class="mb-1">Talking to elders of your family can be tricky. This Article provides context to educate yourself, and your relatives on the matter of small weddings</p>
-      <small>By Shafi Mehdi</small></small>
-    </a>
-    <a href="http://www.khalifatullahmehdi.info/elibrary.asp" class="list-group-item list-group-item-action flex-column align-items-start ">
-      <div class="d-flex w-100 justify-content-between">
-        <h5 class="mb-1">Simple Weddings can help you earn up to 21,78,510 Rupees</h5>
-        <small>Youtube Video</small>
-      </div>
-      <p class="mb-1">Learn how by simple weddings change your position from being in debt to being relatively Wealthy</p>
-      <small>By Ali Khundmiri.</small>
-    </a>
-    <a href="" class="list-group-item list-group-item-action flex-column align-items-start active">
-      <div class="d-flex w-100 justify-content-between">
-        <h5 class="mb-1">Whatsapp Group</h5>
-        <small>Join 100+ People</small>
-      </div>
-      <p class="mb-1"></p>
-      <small>Take part in our daily Discussion and learn more about why wedding needs to be simple.</small>
-    </a>
-    <a href="http://www.khalifatullahmehdi.info/elibrary.asp" class="list-group-item list-group-item-action flex-column align-items-start ">
-      <div class="d-flex w-100 justify-content-between">
-        <h5 class="mb-1">How to avoid Shirk with Simple weddings</h5>
-        <small>Article</small>
-      </div>
-      <p class="mb-1">Shirk is easy to commit. Here's how you can avoid it, with simple weddings</p>
-      <small>By Akram Mehdi.</small>
-    </a>
-    <a href="http://www.khalifatullahmehdi.info/elibrary.asp" class="list-group-item list-group-item-action flex-column align-items-start ">
-      <div class="d-flex w-100 justify-content-between">
-        <h5 class="mb-1">Why Mehdi Alayhis salam would have been again Extravagent weddings</h5>
-        <small>Youtube Video</small>
-      </div>
-      <p class="mb-1">Mehdi AHS practices simple life, and spend most of his (AHS) life worshiping Allah. Here's why he would be angry at us today.</p>
-      <small>By Waqas Abdullah</small>
-    </a>
-    <a href="http://www.khalifatullahmehdi.info/elibrary.asp" class="list-group-item list-group-item-action flex-column align-items-start ">
-      <div class="d-flex w-100 justify-content-between">
-        <h5 class="mb-1">Calculate you Mahr</h5>
-        <small>App</small>
-      </div>
-      <p class="mb-1">A simple app to calculate your Mahr.</p>
-      <small>By Shama Hidayath</small>
-    </a> -->
-  </div>
+      {% empty %}
+      <a href="" class="list-group-item list-group-item-action flex-column align-items-start active">
+        <div class="d-flex w-100 justify-content-between">
+          <h5 class="mb-1">Whatsapp Group</h5>
+          <small>Join 100+ People</small>
+        </div>
+        <p class="mb-1"></p>
+        <small>Take part in our daily Discussion and learn more about why wedding needs to be simple.</small>
+      </a>
+      {% endfor %}
+    </div>
+  </section>
   <!-- Bootstrap core JavaScript -->
   <!-- <script src="vendor/jquery/jquery.slim.min.js"></script> -->
   <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
