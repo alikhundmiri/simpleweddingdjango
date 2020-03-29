@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, HttpResponseRedirect, get_object_or_404
 from django.conf import settings
 
 # importing views
@@ -28,3 +28,16 @@ def index(request):
 		'links' : links,
 	}
 	return render(request, 'index.html', context)
+
+def article(request, slug=None):
+	# try:
+	# use this as try and except once there is 404 page
+	article = get_object_or_404(Post, slug=slug)
+	# except Exception as e:
+	# 	return render(request, 'error_404.html')
+
+	context = {
+		'production' : settings.PRODUCTION,
+		'article' : article,
+	}
+	return render(request, 'article.html', context)

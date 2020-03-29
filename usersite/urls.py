@@ -16,7 +16,9 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 
-from core.views import index, catagory_api, post_api
+from django.conf import settings
+
+from core.views import index, catagory_api, post_api, article
 
 from rest_framework import routers
 from rest_framework.authtoken.views import obtain_auth_token
@@ -30,6 +32,11 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include(router.urls)),
     path('api-token-auth/', obtain_auth_token, name='api-token-auth'),
-
+    path('<slug:slug>/', article, name='article'),
     path('', index, name='index'),
 ]
+
+
+if settings.DEBUG:
+    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
