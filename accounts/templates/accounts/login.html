@@ -46,14 +46,12 @@ Submit New Article | Simple wedding Movement
 
     <div class="card-footer text-muted">
       <div class="col-6 offset-3">
-        
         {% if button_text == 'Login' %}
         <a href="{% url 'register' %}" class="card-subtitle mb-2 text-muted">New here? Register</a>
         {% elif button_text == 'Register' %}
         <a href="{% url 'login' %}" class="card-subtitle mb-2 text-muted">Already Registed? Login</a>
         {% endif %}
       </div>
-      
     </div>
 
   </div>
