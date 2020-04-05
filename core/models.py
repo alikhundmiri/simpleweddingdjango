@@ -58,13 +58,13 @@ class Post(models.Model):
         if slug is a dupe!
         """
         if not self.slug:
-            self.slug = create_default_slug(self.name)
+            self.slug = create_default_slug(self.title)
         super(Post, self).save(*args, **kwargs)
 
 
 
     def get_absolute_url(self):
-        return reverse("article", kwargs={"slug" : self.slug})
+        return reverse("core:article", kwargs={"slug" : self.slug})
 
     class Meta:
         ordering = ["-timestamp", "-updated"]
