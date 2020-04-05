@@ -17,6 +17,7 @@ Submit New Article | Simple wedding Movement
     margin-left: 0% !important;
     margin-right: 0% !important;
     width: 100% !important;
+    min-width: 100% !important;
   }
 </style>
 {% endblock %}
@@ -35,7 +36,7 @@ Submit New Article | Simple wedding Movement
 <section class="col-lg-6 offset-lg-3 col-sm-10 offset-sm-1 col-md-8 offset-md-2">
 
   <div class="card">
-    <div class="card-body col-6 offset-3">
+    <div class="card-body col-lg-6 offset-lg-3 col-md-6 offset-md-3 col-sm-12">
       <h5 class="text-center card-title">{{sub_title}}</h5>
       
       <form class="form-signin" method='POST' action='' enctype='multipart/form-data'>{% csrf_token %}
@@ -45,7 +46,7 @@ Submit New Article | Simple wedding Movement
     </div>
 
     <div class="card-footer text-muted">
-      <div class="col-6 offset-3">
+      <div class="col-lg-6 offset-lg-3 col-md-6 offset-md-3 col-sm-12">
         {% if button_text == 'Login' %}
         <a href="{% url 'register' %}" class="card-subtitle mb-2 text-muted">New here? Register</a>
         {% elif button_text == 'Register' %}

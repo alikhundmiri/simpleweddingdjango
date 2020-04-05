@@ -9,15 +9,21 @@ Submit New Article | Simple wedding Movement
 
 {% block head_extras %}
 {{ form.media }}
+<!-- Blog editor style -->
 <style type="text/css">
   .wmd-button-bar{
     background-color: white !important;
   }
-  .wmd-panel {
-    margin-left: 0% !important;
-    margin-right: 0% !important;
-    width: 100% !important;
+  .wmd-spacer{
+
   }
+ .wmd-panel {
+  margin-left: 0% !important;
+  margin-right: 0% !important;
+  width: 100% !important;
+  min-width: 100% !important;
+
+}
 </style>
 {% endblock %}
 
