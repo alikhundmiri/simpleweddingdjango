@@ -22,6 +22,9 @@ from django.conf.urls.static import static
 
 from django.views.generic.base import TemplateView
 from core.views import index, catagory_api, post_api, article
+
+from accounts.views import (login_view, logout_view, register_view)
+
 from rest_framework import routers
 from rest_framework.authtoken.views import obtain_auth_token
 
@@ -39,6 +42,12 @@ urlpatterns = [
     path('media/', TemplateView.as_view(template_name='media.html'), name='media'),
     path('about/', TemplateView.as_view(template_name='about_us.html'), name='about'),
     path('contact_us/', TemplateView.as_view(template_name='contact_us.html'), name='contact'),
+
+    # Urls from Accounts. Login, Logout, Register
+    path('login/',login_view, name='login' ),
+    path('logout/', logout_view, name='logout'),
+    path('register/', register_view, name='register'),
+    
 ]
 
 

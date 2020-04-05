@@ -30,6 +30,7 @@ PRODUCTION = False
 
 ALLOWED_HOSTS = [
 '127.0.0.1',
+'192.168.0.4',
 'simpleweddingmovement.herokuapp.com',
 ]
 
@@ -39,6 +40,7 @@ ALLOWED_HOSTS = [
 INSTALLED_APPS = [
     # Created apps
     'core',
+    'accounts',
 
     'django.contrib.admin',
     'django.contrib.auth',
@@ -46,7 +48,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    
+
     'pagedown.apps.PagedownConfig',
     'crispy_forms',
 

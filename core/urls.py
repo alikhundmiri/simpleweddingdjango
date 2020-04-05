@@ -27,5 +27,7 @@ urlpatterns = [
 	path('', TemplateView.as_view(template_name='welcome.html'), name='index'),
 	path('blog/', views.index, name='blog'),
 	path('blog/new', views.new_blog, name='new_blog'),
-	path('blog/<slug:slug>/', views.article, name='article'),
+    path('blog/review', views.review_list, name='review_list'),
+    path('blog/<slug:slug>/', views.article, name='article'),
+	path('blog/<slug:slug>/review', views.review, name='review_article'),
 ]

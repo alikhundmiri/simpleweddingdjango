@@ -1,6 +1,11 @@
 from django.conf import settings
+# from django.contrib.admin.views.decorators import staff_member_required
+from django.contrib.auth.decorators import user_passes_test
+
+
 from django.http import Http404, HttpResponseRedirect
-from django.shortcuts import render, HttpResponseRedirect, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
+from django.urls import reverse, reverse_lazy
 
 # importing views
 from .models import Post, catagories
@@ -49,7 +54,7 @@ def article(request, slug=None):
 
 
 def new_blog(request):
-	if request.user.is_superuser:# or not request.user.is_staff or not request.user.is_superuser:
+	if request.user.is_authenticated:# or not request.user.is_staff or not request.user.is_superuser:
 		pass
 	else:
 		raise Http404
@@ -63,7 +68,50 @@ def new_blog(request):
 
 
 	context = {
+		'title' : 'Submit New Article',
+		'button_text' : 'Submit For Review',
 		'production' : settings.PRODUCTION,
 		'form' : form,
 	}
-	return render(request, 'core/new_blog.html', context)
+	return render(request, 'core/blog_editor.html', context)
+
+# @staff_member_required
+@user_passes_test(lambda u:u.is_staff, login_url=reverse_lazy('login'))
+def review_list(request):
+	if request.user.is_staff:# or not request.user.is_staff or not request.user.is_superuser:
+		pass
+	else:
+		raise Http404
+
+	links = Post.objects.filter(publish=False)
+
+	context = {
+		'production' : settings.PRODUCTION,
+		'links' : links,
+	}
+	return render(request, 'core/review_list.html', context)
+
+
+# @staff_member_required
+@user_passes_test(lambda u:u.is_staff, login_url=reverse_lazy('login'))
+def review(request, slug=None):
+	article = get_object_or_404(Post, slug=slug)
+	form = BlogForm(request.POST or None, instance=article)
+	if form.is_valid():
+		instance = form.save(commit=False)
+		instance.publish = True
+		instance.save()
+		# messages.success(request, "Successfully Created")
+		return redirect(reverse('core:review_list'))
+
+
+	context = {
+		'title' : 'Reviewing Article',
+		'button_text' : 'Publish',	
+		'production' : settings.PRODUCTION,
+		'article' : article,
+		'form' : form,
+	}
+	return render(request, 'core/blog_editor.html', context)
+
+	
