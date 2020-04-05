@@ -27,7 +27,7 @@ def index(request):
 		'production' : settings.PRODUCTION,
 		'links' : links,
 	}
-	return render(request, 'index.html', context)
+	return render(request, 'core/blog_list.html', context)
 
 def article(request, slug=None):
 	# try:
@@ -40,4 +40,4 @@ def article(request, slug=None):
 		'production' : settings.PRODUCTION,
 		'article' : article,
 	}
-	return render(request, 'article.html', context)
+	return render(request, 'core/blog_detail.html', context)

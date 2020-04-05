@@ -17,7 +17,10 @@ from django.contrib import admin
 from django.urls import path, include
 
 from django.conf import settings
+from django.conf.urls.static import static
 
+
+from django.views.generic.base import TemplateView
 from core.views import index, catagory_api, post_api, article
 
 from rest_framework import routers
@@ -29,11 +32,18 @@ router.register('post', post_api, basename='post_api')
 
 
 urlpatterns = [
+    path('', TemplateView.as_view(template_name='welcome.html'), name='index'),
+
     path('admin/', admin.site.urls),
+    path('blog/', index, name='blog'),    
     path('api/', include(router.urls)),
-    path('api-token-auth/', obtain_auth_token, name='api-token-auth'),
+    path('api-token-auth/', obtain_auth_token, name='api-token-auth'),    
+    path('faq/', TemplateView.as_view(template_name='faq.html'), name='faq'),
+    path('about/', TemplateView.as_view(template_name='about_us.html'), name='about'),
+    path('contact_us/', TemplateView.as_view(template_name='contact_us.html'), name='contact'),
+
     path('<slug:slug>/', article, name='article'),
-    path('', index, name='index'),
+
 ]
 
 

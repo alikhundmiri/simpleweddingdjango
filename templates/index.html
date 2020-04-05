@@ -46,15 +46,28 @@
       </button>
       <div class="collapse navbar-collapse" id="navbarResponsive">
         <ul class="navbar-nav ml-auto">
-          <li class="nav-item active">
-            <!-- <a class="nav-link" href="http://www.khalifatullahmehdi.info/elibrary.asp">Khalifatullah Mehdi
+          {% comment %}
+          <!-- <li class="nav-item">
+            <a class="nav-link" href="http://www.khalifatullahmehdi.info/elibrary.asp">Khalifatullah Mehdi
               <span class="sr-only">(current)</span>
-            </a> -->
+            </a>
+          </li> -->
+          {% endcomment %}
+
+          <li class="nav-item">
+            <a class="nav-link" href="">FAQ</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="">About</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link btn btn-outline-primary" role="button" href="">Read Article</a>
           </li>
         </ul>
       </div>
     </div>
   </nav>
+
 
   <!-- Page Content -->
   <div class="container">
@@ -83,7 +96,7 @@
           <small class="extra-text">By {{link.user}}</small>
           <small class="extra-text">{{link.timestamp|timesince}} ago</small>
         </div>
-        
+
       </a>
 
       {% empty %}
