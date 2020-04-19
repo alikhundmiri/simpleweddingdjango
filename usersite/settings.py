@@ -25,12 +25,12 @@ SECRET_KEY = os.environ.get('SECRET_KEY', '7k&6y63r*p@m%9tn3m&buelbitl&%@&%^6(rg
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 PRODUCTION = False
 
 ALLOWED_HOSTS = [
 '127.0.0.1',
-'192.168.0.4',
+'192.168.0.5',
 'simpleweddingmovement.herokuapp.com',
 ]
 
