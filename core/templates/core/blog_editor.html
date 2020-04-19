@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load crispy_forms_tags %}
+{% load markdown_deux_tags %}
 {% load static %}
 
 
@@ -17,13 +18,19 @@ Submit New Article | Simple wedding Movement
   .wmd-spacer{
 
   }
- .wmd-panel {
-  margin-left: 0% !important;
-  margin-right: 0% !important;
-  width: 100% !important;
-  min-width: 100% !important;
+  .wmd-panel {
+    margin-left: 0% !important;
+    margin-right: 0% !important;
+    width: 100% !important;
+    min-width: 100% !important;
 
-}
+  }
+  .wmd-preview{
+    display: none;
+  }
+  .content-preview{
+    padding: 10px; 
+  }
 </style>
 {% endblock %}
 
@@ -38,14 +45,36 @@ Submit New Article | Simple wedding Movement
   </div>
 </div>
 
-<section class="col-lg-6 offset-lg-3 col-sm-10 offset-sm-1 col-md-8 offset-md-2">
 
-  <div class="card">
-    <div class="card-body">
-      <form method='POST' action='' enctype='multipart/form-data'>{% csrf_token %}
-        {{ form|crispy }}
-        <input type='submit' class='btn btn-primary' value='{{ button_text }}'/>
-      </form>
+<section class="col-lg-10 col-md-10 col-sm-10 offset-sm-1">
+  <div class="row">
+    <div class="col-lg-6 col-md-12 col-sm-12">
+      <h2 class="mt-5" style="color: #565656">Editor</h2>
+      <div class="card">
+        <div class="card-body">
+          <form method='POST' action='' enctype='multipart/form-data'>{% csrf_token %}
+            {{ form|crispy }}
+            <input type='submit' class='btn btn-primary' value='{{ button_text }}'/>
+          </form>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-6 col-md-12 col-sm-12">
+      <h2 class="mt-5" style="color: #565656">Preview <span><a style="color: gray" class="btn" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">Toggle Format Sheet</a></span></h2>
+      <div class="collapse" style="margin-bottom: 20px" id="collapseExample">
+        <div class="card">
+          <div class="card card-body">
+            {% markdown_cheatsheet %}
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="content-preview">
+          <h1 id="preview-title">Title here</h1>
+          <br>
+          <p id="preview-content">Content here</p>
+        </div>
+      </div>
     </div>
   </div>
 </section>

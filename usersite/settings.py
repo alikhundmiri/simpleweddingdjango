@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'pagedown.apps.PagedownConfig',
+    'markdown_deux',
     'crispy_forms',
 
     'rest_framework',
