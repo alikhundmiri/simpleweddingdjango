@@ -59,8 +59,8 @@ def article(request, slug=None):
 	return render(request, 'core/blog_detail.html', context)
 
 # TODO
-# Show all blog by user
-# if request.user == username, then show even publish=true & false blogs.
+# DONE Show all blog by user
+# DONE if request.user == username, then show even publish=true & false blogs.
 def user_article(request, username=None):
 	this_user=User.objects.filter(username=username)
 	if this_user.exists():
