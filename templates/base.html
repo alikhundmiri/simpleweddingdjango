@@ -122,6 +122,11 @@
 			
 		})
 	</script>
+	{% comment %}
+	{% if request.resolver_match.url_name == 'blog_meta_description' %}
+	<!-- enter script to count meta-description's length -->
+	{% endif %}
+	{% endcomment %}
 
 </body>
 

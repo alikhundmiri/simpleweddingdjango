@@ -54,7 +54,11 @@ Submit New Article | Simple wedding Movement
         <div class="card-body">
           <form method='POST' action='' enctype='multipart/form-data'>{% csrf_token %}
             {{ form|crispy }}
-            <input type='submit' class='btn btn-primary' value='{{ button_text }}'/>
+            {% if request.resolver_match.url_name == 'review_article' %}
+              <a href="" class='btn btn-outline-danger float-left'>Decline</a>
+            {% endif %}
+            <input type='submit' class='btn btn-outline-primary float-right' value='{{ button_text }}'/>
+            
           </form>
         </div>
       </div>

@@ -11,6 +11,7 @@ from core.utils import random_string_generator
 from django.utils.text import Truncator
 
 # Create your models here.
+default_meta_description = 'Please enter meta description for better visibility'
 class catagories(models.Model):
     catagory_name = models.CharField(max_length=20)
     description = models.TextField(max_length=160)
@@ -38,9 +39,9 @@ class Post(models.Model):
     # slug = models.SlugField(unique=True) # enable then when we need links
     title = models.CharField(max_length=300)
     link = models.CharField(max_length=2200, blank=True)
-    detail = models.TextField(max_length=2200)
+    detail = models.TextField(max_length=22000)
+    meta_description = models.TextField(max_length=160, default=default_meta_description)
     slug = models.SlugField(max_length=200, unique=True)
-    # slug = models.AutoSlugField(null=True, default=None, unique=True, populate_from='title')
     catagory = models.ForeignKey(catagories, related_name='posts', default=1, on_delete=models.CASCADE)
 
     publish = models.BooleanField(default=False)

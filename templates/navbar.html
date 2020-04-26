@@ -11,9 +11,10 @@
         {% if request.user.is_authenticated %}
         <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          User
+          {{ request.user.username }}
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="{% url 'core:user_article' request.user %}">My Article</a>
           <a class="dropdown-item" href="{% url 'core:new_blog' %}">Submit Article</a>
           {% if request.user.is_staff %}
           <a class="dropdown-item" href="{% url 'core:review_list' %}">Review Submission</a>

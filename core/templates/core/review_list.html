@@ -19,7 +19,7 @@ Review Submission | Simple wedding Movement
 <section class="col-lg-6 offset-lg-3 col-sm-12 col-md-12">
   
     {% for link in links %}
-    <h2><a href="{% url 'core:review_article' link.slug %}">{{link.title}}</a></h2>
+    <h2><a href="{% url 'core:article' link.slug %}">{{link.title}}</a></h2>
     <p>submitted by {{link.user}} </p>
     {% empty %}
     <p>No submissions review</p>
