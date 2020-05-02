@@ -26,7 +26,11 @@ app_name = "core"
 urlpatterns = [
 	path('', TemplateView.as_view(template_name='welcome.html'), name='index'),
     path('blog/', views.index, name='blog'),
-	path('blog/new', views.new_blog, name='new_blog'),
+    path('blog/new/blog', views.new_blog, name='new_blog'),
+    path('blog/new/link', views.new_link, name='new_link'),
+
+	path('blog/new/choose', views.choose_new_post_type, name='choose_new_post_type'),
+    
     path('blog/review', views.review_list, name='review_list'),
     path('blog/<slug:slug>/', views.article, name='article'),
     path('blog/<slug:slug>/edit', views.edit_blog, name='edit_blog'),

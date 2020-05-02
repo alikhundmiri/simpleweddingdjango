@@ -1,0 +1,102 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block title %}
+Choose new Submission | Simple wedding Movement
+{% endblock %}
+
+{% block head_extras %}
+<style type="text/css">
+  .item-box{
+    margin-bottom: 30px;
+    padding: 20px;
+    border-radius: 5px;
+    outline-color: #dddddd;
+  }
+
+  .item-box:hover{
+    box-shadow: 0px 5px 5px #84CD99;
+  }
+
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+  <div class="row">
+    <div class="col-lg-12 text-center">
+      <h1 class="mt-5" style="color: #565656">New Submission</h1>
+      <p class="lead">Choose what you want to submit</p>
+    </div>
+  </div>
+</div>
+
+
+
+<section class="col-lg-6 offset-lg-3 col-sm-12 col-md-12">
+  <div>
+    <div class="row item-box">
+      <a href="#">
+        <h2>Article Title</h2>
+        <p class="lead">Submit An article idea or suggestion. Anyone can write articles on the topics you suggest</p>
+      </a>
+    </div>
+    <div class="row item-box">
+      <a href="#" data-toggle="modal" data-target="#newArticle">
+        <h2>Article</h2>
+        <p class="lead">Write an Article on any topic.</p>
+      </a>
+    </div>
+    <div class="row item-box">
+      <a href="{% url 'core:new_link' %}">
+        <h2>Link</h2>
+        <p class="lead">Submit Links to display on the articles page</p>
+      </a>
+    </div>
+  </div>
+</section>
+
+
+
+<!-- Button trigger modal -->
+<!-- 
+<button type="button" class="btn btn-primary" >
+  Launch demo modal
+</button>
+-->
+
+<!-- Modal -->
+<div class="modal fade" id="newArticle" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalCenterTitle">The article topic</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div>
+
+        <div class="modal-body">
+          <div class="row item-box">
+            <a href="{% url 'core:new_blog' %}">
+              <h2>New topic</h2>
+            </a>
+          </div>
+          <div class="row item-box disabled">
+            <a href="#">
+              <h2>Pick title from suggestions</h2>
+            </a>
+          </div>
+        </div>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

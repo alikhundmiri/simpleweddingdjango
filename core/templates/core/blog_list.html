@@ -20,6 +20,20 @@ Blogs | Simple wedding Movement
     background-color: #A4DAB3;
     box-shadow: 0px 5px 5px #84CD99;
   }
+  .video-container {
+    position: relative;
+    width: 100%;
+    height: 0;
+    padding-bottom: 56.25%;
+    margin-bottom: 30px;
+  }
+  .youtube-video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
 
 </style>
 {% endblock %}
@@ -44,14 +58,26 @@ Blogs | Simple wedding Movement
     <div class="row item-box">
       <div class="col">
         <div class="row">
-          <a href="{% if link.link %}  {{link.link}} {% else %} {% url 'core:article' link.slug %} {% endif %}">
+
+          {% if link.meta_description == 'youtube' %}
+          <!-- if post is youtube link, show the embedded player -->
+          <div class="video-container">
+            <iframe src="https://www.youtube.com/embed/{{link.detail}}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" class="youtube-video" allowfullscreen></iframe>
+          </div>
+
+          {% else %}
+
+
+          <a href="{% if link.link %}{{link.link}}{% else %}{% url 'core:article' link.slug %}{% endif %}">
             <h2>{{link.title}}</h2>
-            <p class="lead">{{link.meta_description}}.</p>
+            <p class="lead">{{link.meta_description}}</p>
           </a>
+
+          {% endif %}
         </div>
         <div class="row text-muted">
           {{link.catagory}} | By &nbsp;<a href="{% url 'core:user_article' link.user %}"> {{link.user}}</a> &nbsp;| {{link.timestamp|timesince}} ago
-        </div>        
+        </div>
       </div>
     </div>
 
@@ -78,3 +104,6 @@ Blogs | Simple wedding Movement
   </div>
 </section>
 {% endblock %}
+
+<!-- 
+<iframe width="100%" height="fill" src="https://www.youtube.com/embed/nxf41fMX_Y4" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe> -->

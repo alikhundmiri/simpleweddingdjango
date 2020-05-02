@@ -1,3 +1,7 @@
+import requests
+from bs4 import BeautifulSoup
+from urllib.parse import urlparse
+
 from django.conf import settings
 # from django.contrib.admin.views.decorators import staff_member_required
 from django.contrib.auth.decorators import user_passes_test
@@ -10,7 +14,7 @@ from django.urls import reverse, reverse_lazy
 
 # importing views
 from .models import Post, catagories
-from .forms import BlogForm, MetaTagForm, ReviewForm
+from .forms import ArticleForm, MetaTagForm, ReviewArticle, LinkForm, ReviewLink
 
 # rest framework stuff
 from rest_framework import viewsets
@@ -83,13 +87,50 @@ def user_article(request, username=None):
 	}
 	return render(request, 'core/blog_list.html', context)
 
+
+@user_passes_test(lambda u:u.is_authenticated, login_url=reverse_lazy('login'))
+def choose_new_post_type(request):
+	context = {
+		'title' : 'Submit New Article',
+		'button_text' : 'Submit For Review',
+		'production' : settings.PRODUCTION,
+	}
+	return render(request, 'core/choose_new_post_type.html', context)	
+
+
+@user_passes_test(lambda u:u.is_authenticated, login_url=reverse_lazy('login'))
+def new_link(request):
+
+	form = LinkForm(request.POST or None)
+	if form.is_valid():
+		instance = form.save(commit=False)
+		instance.user = request.user
+		link = instance.link
+
+		# fetch the title
+		# fetch the meta_description
+		title, meta_description, link_detail = fetch_details_from_link(link)
+
+		instance.title = title
+		instance.meta_description = meta_description
+		instance.detail = link_detail
+		instance.save()
+		# messages.success(request, "Successfully Created")
+		return HttpResponseRedirect(instance.get_absolute_url())
+		# return redirect(reverse('core:blog_meta_description', kwargs={'slug':instance.slug}))
+		# return redirect(reverse('core:new_link'))
+
+	context = {
+		'title' : 'Submit New Article',
+		'button_text' : 'Submit For Review',
+		'production' : settings.PRODUCTION,
+		'form' : form,
+	}
+	return render(request, 'core/new_link.html', context)	
+
 @user_passes_test(lambda u:u.is_authenticated, login_url=reverse_lazy('login'))
 def new_blog(request):
-	if request.user.is_authenticated:# or not request.user.is_staff or not request.user.is_superuser:
-		pass
-	else:
-		raise Http404
-	form = BlogForm(request.POST or None)
+	form = ArticleForm(request.POST or None)
 	if form.is_valid():
 		instance = form.save(commit=False)
 		instance.user = request.user
@@ -120,7 +161,7 @@ def edit_blog(request, slug=None):
 	else:
 		raise Http404
 
-	form = BlogForm(request.POST or None, instance=post)
+	form = ArticleForm(request.POST or None, instance=post)
 	if form.is_valid():
 		instance = form.save(commit=False)
 		if not request.user.is_staff: #turn blog as unpublished if the blog is edited by non-admin
@@ -192,9 +233,14 @@ def review_list(request):
 @user_passes_test(lambda u:u.is_staff, login_url=reverse_lazy('login'))
 def review(request, slug=None):
 	article = get_object_or_404(Post, slug=slug)
-	form = ReviewForm(request.POST or None, instance=article)
+	if article.link == '':
+		form=ReviewArticle(request.POST or None, instance=article)
+	else:
+		form=ReviewLink(request.POST or None, instance=article)
+
 	if form.is_valid():
 		instance = form.save(commit=False)
+		instance.publish = True
 		instance.save()
 		# messages.success(request, "Successfully Created")
 		return redirect(reverse('core:review_list'))
@@ -209,4 +255,34 @@ def review(request, slug=None):
 	}
 	return render(request, 'core/blog_editor.html', context)
 
-	
+# ------------ O T H E R     F U N C T I O N S
+
+# TODO
+# fall back for case where og:title and og:description are not used
+def fetch_details_from_link(link):
+	r = requests.get(link)
+	soup = BeautifulSoup(r.text, features="lxml")	
+
+
+	title = soup.find("meta",  property="og:title")["content"]
+	# check if link is of youtube
+	# if youtube, description = 'youtube'
+	# if youtube, detail = video_id
+	o = urlparse(link)
+	# if it is, then return different values
+	print(o.netloc)
+	if o.netloc == "youtube.com" or "www.youtube.com" or "youtu.be": #<- netloc returns the domain name
+		description = 'youtube'
+
+		if o.query:
+			detail = o.query.replace('v=','') #<-- https://www.youtube.com/watch?v=nxf41fMX_Y4 [v=nxf41fMX_Y4 ]
+		else:
+			detail = o.path.replace('/','') #<-- https://youtu.be/nxf41fMX_Y4 [/nxf41fMX_Y4]
+
+		print("detail", detail)
+	else:
+		description = soup.find("meta",  property="og:description")["content"]
+		detail = 'empty'
+
+	return title, description, detail
+
