@@ -121,7 +121,7 @@ def new_link(request):
 		# return redirect(reverse('core:new_link'))
 
 	context = {
-		'title' : 'Submit New Article',
+		'title' : 'Submit New Link',
 		'button_text' : 'Submit For Review',
 		'production' : settings.PRODUCTION,
 		'form' : form,
