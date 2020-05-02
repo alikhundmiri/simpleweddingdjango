@@ -41,6 +41,7 @@ urlpatterns = [
     path('faq/', TemplateView.as_view(template_name='faq.html'), name='faq'),
     path('media/', TemplateView.as_view(template_name='media.html'), name='media'),
     path('about/', TemplateView.as_view(template_name='about_us.html'), name='about'),
+    path('roadmap/', TemplateView.as_view(template_name='roadmap.html'), name='roadmap'),
     path('contact_us/', TemplateView.as_view(template_name='contact_us.html'), name='contact'),
 
     # Urls from Accounts. Login, Logout, Register

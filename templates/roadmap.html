@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block title %}Roadmap | Simple wedding Movement{% endblock %}
+
+{% block head_extras %}
+<style type="text/css">
+	.item-done{
+		text-decoration: line-through;
+		text-decoration-color: gray;
+		color: gray;
+	}
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+	<div class="row">
+		<div class="col-lg-12 text-center">
+			<h1 class="mt-5" style="color: #565656">Roadmap</h1>
+			<!-- <p class="lead">list of publications talking about the Simple Shadi Movement</p> -->
+		</div>
+	</div>
+</div>
+
+<section class="col-lg-6 offset-lg-3 col-sm-12 col-md-12">
+	<div>
+		<h2>v 0.0.3 <sup><span style="color: grey">alpha</span></sup></h2>
+		<hr>
+		<ul>
+			<li>Media Page</li>
+			<li>Contact Us page</li>
+			<li>About page</li>
+			<li>Submit Article Titles</li>
+			<li>Submit YouTube links</li>
+			<li>Submit links</li>
+			<li></li>
+			<hr>
+			<li class="item-done">FAQ Page</li>
+			<li class="item-done">Submit Articles</li>
+			<li class="item-done">Review Articles</li>
+		</ul>
+	</div>
+</section>
+{% endblock %}
