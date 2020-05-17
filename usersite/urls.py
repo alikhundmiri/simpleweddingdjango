@@ -32,16 +32,24 @@ router = routers.DefaultRouter()
 router.register('category', catagory_api, basename='catagory_api')
 router.register('post', post_api, basename='post_api')
 
+# QURAN Support:
+# use this to add dynamic arabic support --> https://alquran.cloud/api
+# 1. anywhere on the website users can say something like [Q!2:255] or Q!2:255
+# 2. Javascript will take this special case, take out '2:255'
+# 3. fetch API request to http://api.alquran.cloud/v1/ayah/2:255
+# 4. read the response, and 
+# 5. write the arabic text replacing [Q!2:255]
 
 urlpatterns = [
     path('', include('core.urls', namespace='core')),
     path('admin/', admin.site.urls),
     path('api/', include(router.urls)),
     path('api-token-auth/', obtain_auth_token, name='api-token-auth'),    
-    path('faq/', TemplateView.as_view(template_name='faq.html'), name='faq'),
+    path('faq_v1/', TemplateView.as_view(template_name='faq.html'), name='faq_v1'),
+    path('faq/', TemplateView.as_view(template_name='faq_v2.html'), name='faq_v2'),
     path('media/', TemplateView.as_view(template_name='media.html'), name='media'),
-    path('about/', TemplateView.as_view(template_name='about_us.html'), name='about'),
-    path('roadmap/', TemplateView.as_view(template_name='roadmap.html'), name='roadmap'),
+    path('about/', TemplateView.as_view(template_name='about_us_v2.html'), name='about'),
+    path('roadmap/', TemplateView.as_view(template_name='roadmap_v2.html'), name='roadmap'),
     path('contact_us/', TemplateView.as_view(template_name='contact_us.html'), name='contact'),
     
     # testing

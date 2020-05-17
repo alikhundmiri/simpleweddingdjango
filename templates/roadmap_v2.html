@@ -1,0 +1,102 @@
+{% extends 'base_v2.html' %}
+{% load static %}
+
+
+{% block title %} Roadmap {{block.super}}{% endblock %}
+
+{% block head_extras %}
+<style type="text/css">
+	.item-done{
+		text-decoration: line-through;
+		text-decoration-color: gray;
+		color: gray;
+	}
+</style>
+<!-- <link href="{% static 'base_v2/timeline.css' %}" rel="stylesheet"> -->
+
+
+{% endblock %}
+
+{% block content %}
+<h3 class="pb-4 mb-4 font-italic border-bottom">
+	Website development Roadmap
+</h3>
+
+<!-- Tried to display the roadmap ina fancy way with this code. https://codepen.io/ksantangelo/pen/ZBOpoJ/ 
+
+It's not working out
+-->
+<div class="timeline">
+<!-- <hr> -->
+	<div class="entry">
+		<div class="title">
+			<h3>v 0.1.0</h3>
+			<p>Alpha</p>
+		</div>
+
+		<div class="body">
+			<p>Changed to a new UI, to encourage content consumption</p>
+			<ul>
+				<li>Core Principle</li>
+				<li>Media Page</li>
+				<li>Contact Us page</li>
+				<li>About page</li>
+				<li>FAQ page</li>
+				<li class="item-done">Read Blog page</li>
+				<li class="item-done">All Blogs</li>
+				<li class="item-done">About us</li>
+				<li class="item-done">Landing Page</li>
+			</ul>
+		</div>
+		<div class="body">
+			<p>Admin Panel</p>
+			<ul>
+				<li>Admin Welcome page</li>
+				<li>Login/Signup page</li>
+				<li>Submit Article Titles</li>
+				<li>Submit Articles</li>
+				<li>Review Articles</li>
+				<li>Submit YouTube links</li>
+				<li>Submit links</li>
+			</ul>
+		</div>
+		<div class="body">
+			<p>Matrimonial Site</p>
+			<ul>
+				<li>Core Principle</li>
+				<li>Media Page</li>
+				<li>Contact Us page</li>
+				<li>About page</li>
+				<li>FAQ page</li>
+				<li class="item-done">Read Blog page</li>
+				<li class="item-done">All Blogs</li>
+				<li class="item-done">About us</li>
+				<li class="item-done">Landing Page</li>
+			</ul>
+		</div>
+	</div>
+	<hr>
+
+	<div class="entry">
+		<div class="title">
+			<h3>v 0.0.3</h3>
+			<p>alpha</p>
+		</div>
+
+		<div class="body">
+			<ul>
+				<li>Media Page</li>
+				<li>Contact Us page</li>
+				<li>About page</li>
+				<li>Submit Article Titles</li>
+				<li class="item-done">FAQ Page</li>
+				<li class="item-done">Submit Articles</li>
+				<li class="item-done">Review Articles</li>
+				<li class="item-done">Submit YouTube links</li>
+				<li class="item-done">Submit links</li>
+			</ul>
+		</div>
+	</div>
+	<hr>
+</div>
+{% endblock %}
