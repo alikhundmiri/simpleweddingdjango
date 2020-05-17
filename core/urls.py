@@ -24,20 +24,25 @@ from . import views
 app_name = "core"
 
 urlpatterns = [
-	path('', TemplateView.as_view(template_name='welcome.html'), name='index'),
-    path('blog/', views.index, name='blog'),
+    # user views 
+    # path('', TemplateView.as_view(template_name='welcome.html'), name='index'),
+    # path('', TemplateView.as_view(template_name='base_v2.html'), name='index'),
+    path('', views.index, name='index'),
+    path('blog/', views.blog, name='blog'),
+    path('blog/<slug:slug>/', views.article, name='article'),
+    
+    # writer views
+    path('user/<str:username>', views.user_article, name='user_article'),
     path('blog/new/blog', views.new_blog, name='new_blog'),
     path('blog/new/link', views.new_link, name='new_link'),
-
 	path('blog/new/choose', views.choose_new_post_type, name='choose_new_post_type'),
-    
-    path('blog/review', views.review_list, name='review_list'),
-    path('blog/<slug:slug>/', views.article, name='article'),
-    path('blog/<slug:slug>/edit', views.edit_blog, name='edit_blog'),
     path('blog/<slug:slug>/add_meta', views.blog_meta_description, name='blog_meta_description'),
+
+    # Admin views
+    path('blog/review', views.review_list, name='review_list'),
+    path('blog/<slug:slug>/edit', views.edit_blog, name='edit_blog'),
 	path('blog/<slug:slug>/review', views.review, name='review_article'),
 
     # users
-    path('user/<str:username>', views.user_article, name='user_article'),
 
 ]

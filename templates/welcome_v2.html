@@ -1,0 +1,97 @@
+{% extends 'base_v2.html' %}
+{% load static %}
+
+
+{% block title %} Welcome to {{block.super}} website{% endblock %}
+
+{% block head_extras %}{% endblock %}
+
+{% block welcome_content %}
+<!-- Jumbotron -->
+<div class="jumbotron p-4 p-md-5 text-white rounded bg-dark">
+	<div class="col-md-8 px-0">
+		<h1 class="display-4 font-italic">When Wedding are simple, life becomes easy.</h1>
+		<p class="lead my-3">The sunnah of ﷺ was designed to save us from Debt, Financial inconsistency and pressure due to wealth inequality.</p>
+		<!-- <p class="lead mb-0"><a href="#" class="text-white font-weight-bold">Continue reading...</a></p> -->
+	</div>
+</div> <!-- /.Jumbotron -->
+
+<div class="row mb-2">
+	<div class="col-md-6">
+		<div class="row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+			<div class="col p-4 d-flex flex-column position-static">
+				<strong class="d-inline-block mb-2 text-primary">Frequently Asked Question</strong>
+				<h3 class="mb-0"> Does Quran restricts on feasting people on any occasion and does it put restriction on number of invitees?</h3>
+				<div class="mb-1 text-muted">May 1 | By Syed Shafi</div>
+				<!-- <p class="card-text mb-auto">Same answer as above with an exception that gathering 100s of people in function hall with 10s of dishes is not a part of "An'nikah min sunnati".</p> -->
+				<a href="{% url 'faq' %}" class="stretched-link">Continue reading</a>
+			</div>
+			<!-- <div class="col-auto d-none d-lg-block">
+				<svg class="bd-placeholder-img" width="200" height="250" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Thumbnail"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
+			</div> -->
+		</div>
+	</div>
+	<div class="col-md-6">
+		<div class="row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+			<div class="col p-4 d-flex flex-column position-static">
+				<strong class="d-inline-block mb-2 text-success">Blog</strong>
+				<h3 class="mb-0">Wedding Made Simple</h3>
+				<div class="mb-1 text-muted">May 24 | By Syed Akram</div>
+				<p class="mb-auto">One of the most important conditions of marriage is the Dower (Meher) which is commanded by Allah in Qur'an.</p>
+				<a href="{% url 'core:blog' %}" class="stretched-link">Coming soon</a>
+			</div>
+			<!-- <div class="col-auto d-none d-lg-block">
+				<svg class="bd-placeholder-img" width="200" height="250" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Thumbnail"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
+			</div> -->
+		</div>
+	</div>
+</div>
+{% endblock %}
+
+{% block content %}
+
+<!-- <h3 class="pb-4 mb-4 font-italic border-bottom">
+  From the Firehose
+</h3> -->
+
+{% for link in blogs %}
+<div class="blog-post">
+	<div>
+
+		{% if link.meta_description == 'youtube' %}
+		<!-- if post is youtube link, show the embedded player -->
+		<div>
+			<div class="video-container">
+				<iframe src="https://www.youtube.com/embed/{{link.detail}}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" class="youtube-video" allowfullscreen></iframe>
+			</div>
+		</div> <!-- /.youtube player -->
+
+		{% else %}
+		<div>
+			<a href="{% if link.link %}{{link.link}}{% else %}{% url 'core:article' link.slug %}{% endif %}">
+				<h2 class="blog-post-title">{{link.title}}</h2>
+				<p class="blog-post-meta lead">{{link.meta_description}}</p>
+			</a>
+		</div> <!-- /.post and meta description -->
+
+		{% endif %}
+		<div>
+			<p class="blog-post-meta">{{link.catagory}} {{link.timestamp|date:"D d M Y"}} by <a href="{% url 'core:user_article' link.user %}"> {{link.user}}</a> 
+			</p>
+		</div> <!-- /.name and post type -->
+	</div>	
+</div>
+
+{% empty %}
+<div class="row blog-post">
+	<h2 class="blog-post-title">Whatsapp Group</h2>
+	<p class="blog-post-meta">Join 100+ People</p>
+	<p class="blog-post-meta">Take part in our daily Discussion and learn more about why wedding needs to be simple.</p>
+</div>
+{% endfor %}
+
+<nav class="blog-pagination">
+	<a class="btn btn-block btn-outline-primary" href="{% url 'core:blog' %}">View All</a>
+	<!-- <a class="btn btn-outline-secondary disabled" href="#" tabindex="-1" aria-disabled="true">Newer</a> -->
+</nav>
+{% endblock %}

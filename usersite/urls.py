@@ -21,7 +21,7 @@ from django.conf.urls.static import static
 
 
 from django.views.generic.base import TemplateView
-from core.views import index, catagory_api, post_api, article
+from core.views import catagory_api, post_api
 
 from accounts.views import (login_view, logout_view, register_view)
 
@@ -43,6 +43,9 @@ urlpatterns = [
     path('about/', TemplateView.as_view(template_name='about_us.html'), name='about'),
     path('roadmap/', TemplateView.as_view(template_name='roadmap.html'), name='roadmap'),
     path('contact_us/', TemplateView.as_view(template_name='contact_us.html'), name='contact'),
+    
+    # testing
+    path('login_v2/', TemplateView.as_view(template_name='accounts/login_v2.html'), name='base_v2'),
 
     # Urls from Accounts. Login, Logout, Register
     path('login/',login_view, name='login' ),

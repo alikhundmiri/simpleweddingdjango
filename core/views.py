@@ -32,6 +32,15 @@ class post_api(viewsets.ModelViewSet):
 
 
 def index(request):
+	blogs = Post.objects.filter(publish=True)[:5]
+
+	context = {
+		'production' : settings.PRODUCTION,
+		'blogs': blogs,
+	}
+	return render(request, 'welcome_v2.html', context)
+
+def blog(request):
 	# import data from models
 	links = Post.objects.filter(publish=True)
 
@@ -39,7 +48,7 @@ def index(request):
 		'production' : settings.PRODUCTION,
 		'links' : links,
 	}
-	return render(request, 'core/blog_list.html', context)
+	return render(request, 'core/blog_v2_list.html', context)
 
 def article(request, slug=None):
 	editable = False
@@ -60,7 +69,7 @@ def article(request, slug=None):
 		'article' : article,
 		'editable' : editable,
 	}
-	return render(request, 'core/blog_detail.html', context)
+	return render(request, 'core/blog_v2_detail.html', context)
 
 # TODO
 # DONE Show all blog by user
@@ -72,7 +81,7 @@ def user_article(request, username=None):
 			article = Post.objects.filter(user__username=username)
 		else:
 			article = Post.objects.filter(publish=True, user__username=username)
-		print(article)
+		# print(article)
 	else:
 		return Http404
 
