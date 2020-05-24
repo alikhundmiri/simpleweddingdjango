@@ -30,7 +30,7 @@ PRODUCTION = True
 
 ALLOWED_HOSTS = [
 '127.0.0.1',
-'192.168.0.5',
+'192.168.0.4',
 'simpleweddingmovement.herokuapp.com',
 ]
 

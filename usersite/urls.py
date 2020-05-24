@@ -43,6 +43,8 @@ router.register('post', post_api, basename='post_api')
 urlpatterns = [
     path('', include('core.urls', namespace='core')),
     path('admin/', admin.site.urls),
+    path('dashboard/', TemplateView.as_view(template_name='admin_v2/admin_dashboard_v2.html'), name='admin_dashboard_v2'),
+    
     path('api/', include(router.urls)),
     path('api-token-auth/', obtain_auth_token, name='api-token-auth'),    
     path('faq_v1/', TemplateView.as_view(template_name='faq.html'), name='faq_v1'),
