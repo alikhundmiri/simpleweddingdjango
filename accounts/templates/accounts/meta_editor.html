@@ -1,10 +1,10 @@
-{% extends 'base.html' %}
+{% extends 'accounts/admin_base.html' %}
 {% load crispy_forms_tags %}
 {% load static %}
 
 
 {% block title %}
-Describe your Blog in less than 160 characters | Simple wedding Movement
+Describe your Blog in less than 160 characters | {{block.super}}
 {% endblock %}
 
 {% block head_extras %}

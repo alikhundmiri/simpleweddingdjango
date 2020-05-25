@@ -2,30 +2,83 @@
 	<nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
 		<div class="sb-sidenav-menu">
 			<div class="nav">
-				<div class="sb-sidenav-menu-heading">Core View</div>
-				<a class="nav-link" href="index.html">
+				<div class="sb-sidenav-menu-heading">Home</div>
+				<a class="nav-link" href="{% url 'dashboard:admin_dashboard' %}">
 					<div class="sb-nav-link-icon">
 						<i class="fas fa-tachometer-alt"></i>
 					</div>
 					Dashboard
 				</a>
-				<div class="sb-sidenav-menu-heading">Interface</div>
-				<a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
+				<div class="sb-sidenav-menu-heading">Admin</div>
+				<a class="nav-link" href="/">
+					<div class="sb-nav-link-icon">
+						<i class="fas fa-chart-area"></i>
+					</div>
+					View Submissions
+				</a>
+			
+				<div class="sb-sidenav-menu-heading">Writer</div>
+				
+				<!-- Submit -->
+				<a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseWriter" aria-expanded="false" aria-controls="collapseWriter">
 					<div class="sb-nav-link-icon">
 						<i class="fas fa-columns"></i>
 					</div>
 
-					Layouts
+					Submit
 					<div class="sb-sidenav-collapse-arrow">
 						<i class="fas fa-angle-down"></i>
 					</div>
 				</a>
-				<div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
+				<div class="collapse" id="collapseWriter" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
 					<nav class="sb-sidenav-menu-nested nav">
-						<a class="nav-link" href="layout-static.html">Static Navigation</a>
-						<a class="nav-link" href="layout-sidenav-light.html">Light Sidenav</a>
+						<a class="nav-link" href="{% url 'dashboard:new_blog' %}">New Article</a>
+						<a class="nav-link disabled" href="/">New Topic</a>
+						<a class="nav-link disabled" href="/">New Link</a>
 					</nav>
 				</div>
+				<a class="nav-link disabled " href="/">
+					<div class="sb-nav-link-icon">
+						<i class="fas fa-chart-area"></i>
+					</div>
+					Drafts
+				</a>
+				<a class="nav-link disabled " href="/">
+					<div class="sb-nav-link-icon">
+						<i class="fas fa-chart-area"></i>
+					</div>
+					Submitted
+				</a>
+				<!-- End of submit -->
+
+				<div class="sb-sidenav-menu-heading">Website</div>
+				<a class="nav-link disabled " href="/">
+					<div class="sb-nav-link-icon">
+						<i class="fas fa-chart-area"></i>
+					</div>
+					Homepage
+				</a>
+
+				<a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="false" aria-controls="collapsePages">
+					<div class="sb-nav-link-icon">
+						<i class="fas fa-columns"></i>
+					</div>
+
+					Pages
+					<div class="sb-sidenav-collapse-arrow">
+						<i class="fas fa-angle-down"></i>
+					</div>
+				</a>
+				<div class="collapse" id="collapsePages" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
+					<nav class="sb-sidenav-menu-nested nav">
+						<a class="nav-link" href="{% url 'faq_v2' %}">FAQ</a>
+						<a class="nav-link" href="{% url 'about' %}">About Us</a>
+						<a class="nav-link" href="{% url 'media' %}">Media</a>
+						<a class="nav-link" href="{% url 'roadmap' %}">RoadMap</a>
+						<a class="nav-link" href="{% url 'contact' %}">Contact Us</a>
+					</nav>
+				</div>
+				<!-- 
 				<a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="false" aria-controls="collapsePages">
 					<div class="sb-nav-link-icon">
 						<i class="fas fa-book-open"></i>
@@ -70,20 +123,7 @@
 						</div>
 					</nav>
 				</div>
-
-				<div class="sb-sidenav-menu-heading">Addons</div>
-				<a class="nav-link" href="charts.html">
-					<div class="sb-nav-link-icon">
-						<i class="fas fa-chart-area"></i>
-					</div>
-					Charts
-				</a>
-				<a class="nav-link" href="tables.html">
-					<div class="sb-nav-link-icon">
-						<i class="fas fa-table"></i>
-					</div>
-					Tables
-				</a>
+ 				-->
 			</div>
 		</div>
 		<div class="sb-sidenav-footer">

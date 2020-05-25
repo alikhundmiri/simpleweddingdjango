@@ -1,11 +1,11 @@
-{% extends 'base.html' %}
+{% extends 'accounts/admin_base.html' %}
 {% load crispy_forms_tags %}
 {% load markdown_deux_tags %}
 {% load static %}
 
 
 {% block title %}
-Submit New Link | Simple wedding Movement
+Submit New Link | {{block.super}}
 {% endblock %}
 
 {% block head_extras %}
