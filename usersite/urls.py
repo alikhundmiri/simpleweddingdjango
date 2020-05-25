@@ -42,11 +42,11 @@ router.register('post', post_api, basename='post_api')
 
 urlpatterns = [
     path('', include('core.urls', namespace='core')),
-    path('admin/', admin.site.urls),
-    path('dashboard/', TemplateView.as_view(template_name='admin_v2/admin_dashboard_v2.html'), name='admin_dashboard_v2'),
     
+    # VISITOR INTERFACE
     path('api/', include(router.urls)),
     path('api-token-auth/', obtain_auth_token, name='api-token-auth'),    
+    
     path('faq_v1/', TemplateView.as_view(template_name='faq.html'), name='faq_v1'),
     path('faq/', TemplateView.as_view(template_name='faq_v2.html'), name='faq_v2'),
     path('media/', TemplateView.as_view(template_name='media.html'), name='media'),
@@ -55,12 +55,16 @@ urlpatterns = [
     path('contact_us/', TemplateView.as_view(template_name='contact_us.html'), name='contact'),
     
     # testing
-    path('login_v2/', TemplateView.as_view(template_name='accounts/login_v2.html'), name='base_v2'),
+    # path('login_v2/', TemplateView.as_view(template_name='accounts/login_v2.html'), name='base_v2'),
 
-    # Urls from Accounts. Login, Logout, Register
-    path('login/',login_view, name='login' ),
+    # ADMIN INTERFACE
+    path('login/',login_view, name='login' ),    
     path('logout/', logout_view, name='logout'),
     path('register/', register_view, name='register'),
+
+    path('admin/', admin.site.urls),
+
+    path('dashboard/', include('accounts.urls', namespace='dashboard')),
     
 ]
 

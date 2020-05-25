@@ -21,23 +21,22 @@ from django.views.generic.base import TemplateView
 
 from . import views
 
-app_name = "core"
+app_name = "accounts"
 
 urlpatterns = [
-    # user views 
-    # path('', TemplateView.as_view(template_name='welcome.html'), name='index'),
-    # path('', TemplateView.as_view(template_name='base_v2.html'), name='index'),
-    path('', views.index, name='index'),
-    path('blog/', views.blog, name='blog'),
-    path('blog/<slug:slug>/', views.article, name='article'),
-    
     # writer views
-    path('user/<str:username>', views.user_article, name='user_article'),
+    path('', views.admin_dashboard, name='admin_dashboard'),
+    # path('<str:username>', views.user_article, name='user_article'),
+    path('new/', views.new, name='new'),
+    path('new/blog/', views.new_blog, name='new_blog'),
+    path('new/link/', views.new_link, name='new_link'),
+    
+    path('blog/<slug:slug>/add_meta', views.blog_meta_description, name='blog_meta_description'),
 
     # Admin views
-    # path('blog/review', views.review_list, name='review_list'),
-    # path('blog/<slug:slug>/edit', views.edit_blog, name='edit_blog'),
-	# path('blog/<slug:slug>/review', views.review, name='review_article'),
+    path('blog/review', views.review_list, name='review_list'),
+    path('blog/<slug:slug>/edit', views.edit_blog, name='edit_blog'),
+	path('blog/<slug:slug>/review', views.review, name='review_article'),
 
     # users
 

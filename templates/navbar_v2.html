@@ -14,9 +14,9 @@
 				<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="mx-3" role="img" viewBox="0 0 24 24" focusable="false"><title>Search</title><circle cx="10.5" cy="10.5" r="7.5"/><path d="M21 21l-5.2-5.2"/></svg>
 			</a> -->
 			{% if request.user.is_authenticated %}
-			<a style="margin: 2px" class="btn btn-sm btn-outline-primary" href="{% url 'login' %}">New</a>
-			<a style="margin: 2px" class="btn btn-sm btn-outline-info" href="{% url 'login' %}">Review</a>
-			<a style="margin: 2px" class="btn btn-sm btn-dark" href="{% url 'core:choose_new_post_type' %}">Dashboard</a>
+			<a style="margin: 2px" class="btn btn-sm btn-outline-primary" href="{% url 'dashboard:new' %}">New</a>
+			<a style="margin: 2px" class="btn btn-sm btn-outline-info" href="{% url 'dashboard:review_list' %}">Review</a>
+			<a style="margin: 2px" class="btn btn-sm btn-dark" href="{% url 'dashboard:admin_dashboard' %}">Dashboard</a>
 			{% else %}
 			<a class="btn btn-sm btn-outline-secondary" href="{% url 'login' %}">Login</a>			
 			{% endif %}
