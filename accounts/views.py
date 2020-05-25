@@ -24,7 +24,7 @@ def login_view(request):
 		user = authenticate(username=username, password=password)
 		login(request,user)
 		# change redirect to profile page
-		return redirect(reverse('core:new_blog'))
+		return redirect(reverse('dashboard:admin_dashboard'))
 	context = {
 		'title' : 'Please Log in',
 		'sub_title' : 'Enter your credentials',
@@ -45,7 +45,7 @@ def register_view(request):
 		login(request, new_user)
 		# change redirect to profile page
 		# return redirect("/")
-		return redirect(reverse('core:new_blog'))
+		return redirect(reverse('dashboard:admin_dashboard'))
 	context = {
 		'title' : 'Register New Account',
 		'sub_title' : 'Welcome to the community. Please fill the form to create your account',
