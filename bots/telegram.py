@@ -15,6 +15,7 @@ For a description of the Bot API, see this page: https://core.telegram.org/bots/
 '''
 
 import os
+import requests
 TELEGRAM_TOKEN = os.environ.get('TELEGRAM_TOKEN')
 print(TELEGRAM_TOKEN)
 
