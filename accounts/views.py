@@ -87,7 +87,7 @@ def telegram_bot(request):
 	message_body = message_text
 	
 	reply = send_message("hey {} {}".format(first_name, last_name), message_body, message_date, sender_id)
-	return JsonResponse(reply)
+	return JsonResponse(reply,safe=False)
 
 
 # ------------ A D M I N    I N T E R F A C E     P A G E S 
