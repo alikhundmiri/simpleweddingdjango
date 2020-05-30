@@ -69,7 +69,7 @@ def telegram_bot(request):
 	try:
 		json_message = json.loads(request.body)
 	except json.decoder.JSONDecodeError as err:
-		return HttpResponse(str(err))
+		return JsonResponse(str(err))
 	
 	# write the code here to use the following data from JSON Response
 	sender_id		= json_message['message']['from'].get('id')
