@@ -85,12 +85,13 @@ def telegram_bot(request):
 	last_name		= json_message['message']['from'].get('last_name')
 
 	if message_text == '/start':
-		reply =
+		reply = send_message('', message_text, '', sender_id)
 	elif message_text == '/pair':
 		link = 'https://www.instagram.com/alicodermaker'
 		reply = send_pair_url(link, sender_id)
-	
-	reply = send_message("hey {} {}".format(first_name, last_name), message_text, message_date, sender_id)
+	else:
+		reply = send_message("hey {} {}".format(first_name, last_name), message_text, message_date, sender_id)
+
 	return JsonResponse(reply, safe=False)
 
 
