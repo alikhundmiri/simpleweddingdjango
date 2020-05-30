@@ -22,6 +22,8 @@ TELEGRAM_USER_ID = os.environ.get('TELEGRAM_USER_ID')
 '''
 https://api.telegram.org/botfiajsdv;oijl/setWebhook?url=https://simpleweddingmovement.herokuapp.com/tbot
 https://api.telegram.org/botdslijv;dlijv/getWebhookInfo
+
+
 '''
 
 def send_message(title, text, subtitle, chat_id):

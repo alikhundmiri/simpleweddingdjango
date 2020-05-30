@@ -67,7 +67,7 @@ urlpatterns = [
     path('dashboard/', include('accounts.urls', namespace='dashboard')),
 
     # TELEGRAM BOT
-    path('tbot/', telegram_bot, name='telegram_bot'),    
+    path('tbot', telegram_bot, name='telegram_bot'),    
 
     
 ]

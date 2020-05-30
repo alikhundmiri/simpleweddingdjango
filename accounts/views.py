@@ -66,9 +66,13 @@ def logout_view(request):
 # ------------ T E L E G R A M    B O T
 @csrf_exempt
 def telegram_bot(request):
+	print('recieve the message.')
 	try:
+		print('trying to find json')
 		json_message = json.loads(request.body)
+
 	except json.decoder.JSONDecodeError as err:
+		print("Found no Json. here's your page")
 		return HttpResponse("Welcome, Thanos! Sons of Alars")
 	
 	# write the code here to use the following data from JSON Response
