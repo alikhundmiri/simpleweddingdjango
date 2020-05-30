@@ -17,7 +17,7 @@ from django.views.decorators.csrf import csrf_exempt
 from .forms import UserLoginForm, UserRegisterForm
 from core.forms import ArticleForm, MetaTagForm, ReviewArticle, LinkForm, ReviewLink
 from core.models import Post, catagories
-from bots.telegram import send_message
+from bots.telegram import send_message, send_pair_url
 
 def login_view(request):
 	form = UserLoginForm(request.POST or None)
@@ -84,10 +84,14 @@ def telegram_bot(request):
 	first_name		= json_message['message']['from'].get('first_name')
 	last_name		= json_message['message']['from'].get('last_name')
 
-	message_body = message_text
+	if message_text == '/start':
+		reply =
+	elif message_text == '/pair':
+		link = 'https://www.instagram.com/alicodermaker'
+		reply = send_pair_url(link, sender_id)
 	
-	reply = send_message("hey {} {}".format(first_name, last_name), message_body, message_date, sender_id)
-	return JsonResponse(reply,safe=False)
+	reply = send_message("hey {} {}".format(first_name, last_name), message_text, message_date, sender_id)
+	return JsonResponse(reply, safe=False)
 
 
 # ------------ A D M I N    I N T E R F A C E     P A G E S 

@@ -49,3 +49,19 @@ _{}_'''.format(title, text, subtitle)
 	
 if __name__ == '__main__':
 	send_message("Testing from SimpleWeddingBot", "Please connect to this bot to recieve website updates", "Please reply to continue")
+
+def send_pair_url(link, chat_id):
+	url  = 'https://api.telegram.org/bot{}/sendMessage'.format(TELEGRAM_TOKEN)
+	payload = {"chat_id":chat_id, "text":"📎 Here's your pair link", "reply_markup": {"inline_keyboard": [[{"text":"🔑 Pair", "url": link}]]} }
+	print("url ", url)
+	print("payload ", payload)
+	r = requests.post(url, data=payload)
+	
+	print(r.status_code)
+	if r.status_code == 200:
+		print("Message sent!")
+	else:
+		print("some error!")
+	print(r.text)
+	return(r.text)
+
