@@ -1,3 +1,4 @@
+import json
 from django.contrib.auth import (
 	authenticate,
 	get_user_model,
@@ -7,14 +8,16 @@ from django.contrib.auth import (
 from django.contrib.auth.decorators import user_passes_test
 
 from django.conf import settings
-from django.http import Http404, HttpResponseRedirect
+from django.http import Http404, HttpResponseRedirect, JsonResponse
 from django.shortcuts import render, redirect
 
 from django.urls import reverse, reverse_lazy
+from django.views.decorators.csrf import csrf_exempt
 
 from .forms import UserLoginForm, UserRegisterForm
 from core.forms import ArticleForm, MetaTagForm, ReviewArticle, LinkForm, ReviewLink
 from core.models import Post, catagories
+from bots.telegram import send_message
 
 def login_view(request):
 	form = UserLoginForm(request.POST or None)
@@ -59,6 +62,28 @@ def register_view(request):
 def logout_view(request):
 	logout(request)
 	return redirect('/')
+
+# ------------ T E L E G R A M    B O T
+@csrf_exempt
+def telegram_bot(request):
+	try:
+		json_message = json.loads(request.body)
+	except json.decoder.JSONDecodeError as err:
+		return HttpResponse(str(err))
+	
+	# write the code here to use the following data from JSON Response
+	sender_id		= json_message['message']['from'].get('id')
+	update_id		= json_message.get('update_id')
+	message_text	= json_message['message'].get('text')
+	message_date	= json_message['message'].get('date')
+
+	first_name		= json_message['message']['from'].get('first_name')
+	last_name		= json_message['message']['from'].get('last_name')
+
+	message_body = message_text
+	
+	reply = send_message("hey {} {}".format(first_name, last_name), message_body, message_date, sender_id)
+	return JsonResponse(reply)
 
 
 # ------------ A D M I N    I N T E R F A C E     P A G E S 

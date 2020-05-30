@@ -5,7 +5,7 @@
 
 
 {% block title %}
-Submit New Link | {{block.super}}
+Submit New Link {{block.super}}
 {% endblock %}
 
 {% block head_extras %}
@@ -51,9 +51,10 @@ Submit New Link | {{block.super}}
 
 
 
-<section class="col-lg-6 offset-lg-3 col-sm-10 offset-sm-1 col-md-8 offset-md-2">
+<section class="col-lg-12 col-md-12 col-sm-12">
+
 	<div class="row">
-		<div class="col-12">
+		<div class="col-6">
 			<h2 class="mt-1" style="color: #565656">Enter the link</h2>
 			<div class="card">
 				<div class="card-body">
@@ -64,6 +65,21 @@ Submit New Link | {{block.super}}
 				</div>
 			</div>
 		</div>
+		<div class="col-lg-6 col-md-12 col-sm-12">
+			<h2 class="mt-1" style="color: #565656">Help</h2>
+			<div class="card">
+				<div class="content-preview">
+					<h3>Allowed links</h3>
+					<br>
+					<p>The following links are allowed to be shared on Simple Wedding Movement Website.</p>
+					<ul>
+						<li>Youtube links</li>
+						<li>Article links</li>
+					</ul>
+				</div>
+			</div>
+		</div>
 	</div>
+
 </section>
 {% endblock %}

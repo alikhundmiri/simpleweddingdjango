@@ -23,7 +23,7 @@ from django.conf.urls.static import static
 from django.views.generic.base import TemplateView
 from core.views import catagory_api, post_api
 
-from accounts.views import (login_view, logout_view, register_view)
+from accounts.views import (login_view, logout_view, register_view, telegram_bot)
 
 from rest_framework import routers
 from rest_framework.authtoken.views import obtain_auth_token
@@ -65,6 +65,10 @@ urlpatterns = [
     path('admin/', admin.site.urls),
 
     path('dashboard/', include('accounts.urls', namespace='dashboard')),
+
+    # TELEGRAM BOT
+    path('tbot/', telegram_bot, name='telegram_bot'),    
+
     
 ]
 
