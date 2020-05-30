@@ -11,49 +11,72 @@
 	<li class="breadcrumb-item active">Dashboard</li>
 </ol> 
 <div class="card mb-4">
-	<div class="card-header"><i class="fas fa-table mr-1"></i>DataTable Example</div>
+	<div class="card-header"><i class="fas fa-table mr-1"></i>My Submissions</div>
 	<div class="card-body">
 		<div class="table-responsive">
-			<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+			<table class="table" id="dataTable" width="100%" cellspacing="0">
 				<thead>
 					<tr>
 						<th>Title</th>
-						<th>Catagory</th>
 						<th>Status</th>
 						<th>Last Update</th>
-						<th>Actions</th>
+						<th>View</th>
+						<th>Edit</th>
+						<th>Meta</th>
+						<th>Delete</th>
 					</tr>
 				</thead>
 				<tfoot>
 					<tr>
 						<th>Title</th>
-						<th>Catagory</th>
 						<th>Status</th>
 						<th>Last Update</th>
-						<th>Actions</th>
+						<th>View</th>
+						<th>Edit</th>
+						<th>Meta</th>
+						<th>Delete</th>
 					</tr>
 				</tfoot>
 				<tbody>
 					{% for blog in blogs %}
 					<tr>
-						<td>{{blog.title}}</td>
-						<td>{{blog.catagory}}</td>
-						<td>{{blog.publish}}</td>
-						<td>{{blog.updated}}</td>
 						<td>
-							<div class="row">
-								<div class="col">
-									<a style="margin: 5px" href="{% if blog.link %}{{blog.link}}{% else %}{% url 'core:article' blog.slug %}{% endif %}" class="btn btn-outline-primary">
-										<i class="fas fa-eye"></i>
-									</a>
-									<a style="margin: 5px" href="{% url 'dashboard:edit_blog' blog.slug %}" class="btn btn-outline-secondary">
-										<i class="fas fa-edit"></i>
-									</a>
-									<a style="margin: 5px" href="" class="btn btn-outline-danger disabled">
-										<i class="fas fa-trash"></i>
-									</a>
-								</div>
-							</div>
+							<!-- <span class="badge badge-pill badge-primary">
+								{{blog.catagory}}
+							</span><br> -->
+							{{blog.title}}
+						</td>
+						<td>
+							{% if blog.publish %}
+							<span class="badge badge-primary">Published</span>
+							{% else %}
+							<span class="badge badge-secondary">Draft</span>
+							{% endif %}
+						</td>
+						<td>
+							{{blog.updated|date:'d M Y'}}<br>
+							<!-- {{blog.updated|date:'g:i a'}}<br> -->
+							<!-- {{blog.updated|date:'l'}}<br> -->
+						</td>
+						<td>
+							<a style="margin: 5px" href="{% if blog.link %}{{blog.link}}{% else %}{% url 'core:article' blog.slug %}{% endif %}" class="btn btn-outline-primary">
+								<i class="fas fa-eye"></i>
+							</a>
+						</td>
+						<td>
+							<a style="margin: 5px" href="{% url 'dashboard:edit_blog' blog.slug %}" class="btn btn-outline-secondary">
+								<i class="fas fa-edit"></i>
+							</a>
+						</td>
+						<td>
+							<a style="margin: 5px" href="{% url 'dashboard:blog_meta_description' blog.slug %}" class="btn btn-outline-secondary">
+								<i class="fas fa-info-circle"></i>
+							</a>
+						</td>
+						<td>
+							<a style="margin: 5px" href="" class="btn btn-outline-danger disabled">
+								<i class="fas fa-trash"></i>
+							</a>
 						</td>
 					</tr>
 					{% endfor %}

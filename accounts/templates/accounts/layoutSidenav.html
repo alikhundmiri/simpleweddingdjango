@@ -10,7 +10,7 @@
 					Dashboard
 				</a>
 				<div class="sb-sidenav-menu-heading">Admin</div>
-				<a class="nav-link" href="/">
+				<a class="nav-link" href="{% url 'dashboard:review_list' %}">
 					<div class="sb-nav-link-icon">
 						<i class="fas fa-chart-area"></i>
 					</div>
@@ -33,26 +33,26 @@
 				<div class="collapse" id="collapseWriter" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
 					<nav class="sb-sidenav-menu-nested nav">
 						<a class="nav-link" href="{% url 'dashboard:new_blog' %}">New Article</a>
+						<a class="nav-link" href="{% url 'dashboard:new_link' %}">New Link</a>
 						<a class="nav-link disabled" href="/">New Topic</a>
-						<a class="nav-link disabled" href="/">New Link</a>
 					</nav>
 				</div>
-				<a class="nav-link disabled " href="/">
+				<!-- <a class="nav-link disabled " href="/">
 					<div class="sb-nav-link-icon">
 						<i class="fas fa-chart-area"></i>
 					</div>
 					Drafts
-				</a>
-				<a class="nav-link disabled " href="/">
+				</a> -->
+				<!-- <a class="nav-link disabled " href="/">
 					<div class="sb-nav-link-icon">
 						<i class="fas fa-chart-area"></i>
 					</div>
 					Submitted
-				</a>
+				</a> -->
 				<!-- End of submit -->
 
 				<div class="sb-sidenav-menu-heading">Website</div>
-				<a class="nav-link disabled " href="/">
+				<a class="nav-link" href="{% url 'core:index' %}">
 					<div class="sb-nav-link-icon">
 						<i class="fas fa-chart-area"></i>
 					</div>

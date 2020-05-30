@@ -12,53 +12,58 @@ Submit New Link | {{block.super}}
 {{ form.media }}
 <!-- Blog editor style -->
 <style type="text/css">
-  .wmd-button-bar{
-    background-color: white !important;
-  }
-  .wmd-spacer{
+	.wmd-button-bar{
+		background-color: white !important;
+	}
+	.wmd-spacer{
 
-  }
-  .wmd-panel {
-    margin-left: 0% !important;
-    margin-right: 0% !important;
-    width: 100% !important;
-    min-width: 100% !important;
+	}
+	.wmd-panel {
+		margin-left: 0% !important;
+		margin-right: 0% !important;
+		width: 100% !important;
+		min-width: 100% !important;
 
-  }
-  .wmd-preview{
-    display: none;
-  }
-  .content-preview{
-    padding: 10px; 
-  }
+	}
+	.wmd-preview{
+		display: none;
+	}
+	.content-preview{
+		padding: 10px; 
+	}
 </style>
 {% endblock %}
 
 
 {% block content %}
 <!-- Page Content -->
-<div class="container">
-  <div class="row">
-    <div class="col-lg-12 text-center">
-      <h1 class="mt-5" style="color: #565656">{{ title }}</h1>
-    </div>
-  </div>
-</div>
+<h1 class="mt-4">{{ title }}</h1>
+<ol class="breadcrumb mb-4">
+	<li class="breadcrumb-item">
+		<a href="{% url 'dashboard:admin_dashboard' %}">
+			Dashboard
+		</a>
+	</li>
+	<li class="breadcrumb-item active">{{title}}</li>
+</ol> 
+
+
+
 
 
 <section class="col-lg-6 offset-lg-3 col-sm-10 offset-sm-1 col-md-8 offset-md-2">
-  <div class="row">
-    <div class="col-12">
-      <h2 class="mt-5" style="color: #565656">Enter the link</h2>
-      <div class="card">
-        <div class="card-body">
-          <form method='POST' action='' enctype='multipart/form-data'>{% csrf_token %}
-            {{ form|crispy }}
-            <input type='submit' class='btn btn-outline-primary float-right' value='{{ button_text }}'/>
-          </form>
-        </div>
-      </div>
-    </div>
-  </div>
+	<div class="row">
+		<div class="col-12">
+			<h2 class="mt-1" style="color: #565656">Enter the link</h2>
+			<div class="card">
+				<div class="card-body">
+					<form method='POST' action='' enctype='multipart/form-data'>{% csrf_token %}
+						{{ form|crispy }}
+						<input type='submit' class='btn btn-outline-primary float-right' value='{{ button_text }}'/>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
 </section>
 {% endblock %}

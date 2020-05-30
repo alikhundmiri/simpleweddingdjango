@@ -12,75 +12,79 @@ Submit New Article | {{block.super}}
 {{ form.media }}
 <!-- Blog editor style -->
 <style type="text/css">
-  .wmd-button-bar{
-    background-color: white !important;
-  }
-  .wmd-spacer{
+	.wmd-button-bar{
+		background-color: white !important;
+	}
+	.wmd-spacer{
 
-  }
-  .wmd-panel {
-    margin-left: 0% !important;
-    margin-right: 0% !important;
-    width: 100% !important;
-    min-width: 100% !important;
+	}
+	.wmd-panel {
+		margin-left: 0% !important;
+		margin-right: 0% !important;
+		width: 100% !important;
+		min-width: 100% !important;
 
-  }
-  .wmd-preview{
-    display: none;
-  }
-  .content-preview{
-    padding: 10px; 
-  }
+	}
+	.wmd-preview{
+		display: none;
+	}
+	.content-preview{
+		padding: 10px; 
+	}
 </style>
 {% endblock %}
 
 
 {% block content %}
 <!-- Page Content -->
-<div class="container">
-  <div class="row">
-    <div class="col-lg-12 text-center">
-      <h1 class="mt-5" style="color: #565656">{{ title }}</h1>
-    </div>
-  </div>
-</div>
+<h1 class="mt-4">{{ title }}</h1>
+<ol class="breadcrumb mb-4">
+	<li class="breadcrumb-item">
+		<a href="{% url 'dashboard:admin_dashboard' %}">
+			Dashboard
+		</a>
+	</li>
+	<li class="breadcrumb-item active">{{title}}</li>
+</ol> 
 
 
-<section class="col-lg-10 col-md-10 col-sm-10 offset-sm-1">
-  <div class="row">
-    <div class="col-lg-6 col-md-12 col-sm-12">
-      <h2 class="mt-5" style="color: #565656">Editor</h2>
-      <div class="card">
-        <div class="card-body">
-          <form method='POST' action='' enctype='multipart/form-data'>{% csrf_token %}
-            {{ form|crispy }}
-            {% if request.resolver_match.url_name == 'review_article' %}
-              <a href="" class='btn btn-outline-danger float-left'>Decline</a>
-            {% endif %}
-            <input type='submit' class='btn btn-outline-primary float-right' value='{{ button_text }}'/>
-            
-          </form>
-        </div>
-      </div>
-    </div>
-    <div class="col-lg-6 col-md-12 col-sm-12">
-      <h2 class="mt-5" style="color: #565656">Preview <span><a style="color: gray" class="btn" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">Toggle Format Sheet</a></span></h2>
-      <div class="collapse" style="margin-bottom: 20px" id="collapseExample">
-        <div class="card">
-          <div class="card card-body">
-            {% markdown_cheatsheet %}
-          </div>
-        </div>
-      </div>
-      <div class="card">
-        <div class="content-preview">
-          <h1 id="preview-title">Title here</h1>
-          <br>
-          <p id="preview-content">Content here</p>
-        </div>
-      </div>
-    </div>
-  </div>
+
+<section class="col-lg-12 col-md-12 col-sm-12">
+
+	<div class="row">
+		<div class="col-lg-6 col-md-12 col-sm-12">
+			<h2 class="mt-1" style="color: #565656">Editor</h2>
+			<div class="card">
+				<div class="card-body">
+					<form method='POST' action='' enctype='multipart/form-data'>{% csrf_token %}
+						{{ form|crispy }}
+						{% if request.resolver_match.url_name == 'review_article' %}
+						<a href="" class='btn btn-outline-danger float-left'>Decline</a>
+						{% endif %}
+						<input type='submit' class='btn btn-outline-primary float-right' value='{{ button_text }}'/>
+
+					</form>
+				</div>
+			</div>
+		</div>
+		<div class="col-lg-6 col-md-12 col-sm-12">
+			<h2 class="mt-1" style="color: #565656">Preview <span><a style="color: gray" class="btn" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">Toggle Format Sheet</a></span></h2>
+			<div class="collapse" style="margin-bottom: 20px" id="collapseExample">
+				<div class="card">
+					<div class="card card-body">
+						{% markdown_cheatsheet %}
+					</div>
+				</div>
+			</div>
+			<div class="card">
+				<div class="content-preview">
+					<h1 id="preview-title">Title here</h1>
+					<br>
+					<p id="preview-content">Content here</p>
+				</div>
+			</div>
+		</div>
+	</div>
 </section>
 
 

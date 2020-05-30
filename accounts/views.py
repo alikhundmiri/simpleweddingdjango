@@ -65,7 +65,7 @@ def logout_view(request):
 
 # User admin Dashboard
 @user_passes_test(lambda u:u.is_authenticated, login_url=reverse_lazy('login'))
-def admin_dashboard(request, username=None):
+def admin_dashboard(request):
 	article = Post.objects.filter(user__username=request.user.username)
 
 	# get all blogs
@@ -187,7 +187,8 @@ def blog_meta_description(request, slug=None):
 	else:
 		raise Http404
 	post = Post.objects.get(slug=slug)
-
+	print(slug)
+	print(post.slug)
 	form = MetaTagForm(request.POST or None, instance=post)
 	if form.is_valid():
 		instance = form.save(commit=False)
@@ -199,7 +200,8 @@ def blog_meta_description(request, slug=None):
 	context = {
 		'title' : 'Meta Description',
 		'button_text' : 'Submit',
-		'blog_title' : post.title,		
+		'blog_title' : post.title,	
+		'blog_slug' : slug,	
 		'production' : settings.PRODUCTION,
 		'form' : form,
 	}
