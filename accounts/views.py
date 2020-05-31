@@ -18,7 +18,7 @@ from .forms import UserLoginForm, UserRegisterForm, ProfileForm
 from .models import Profile, accountCode
 from core.forms import ArticleForm, MetaTagForm, ReviewArticle, LinkForm, ReviewLink
 from core.models import Post, catagories
-from bots.telegram import send_message, send_pair_url, successful_connection, check_existing_user, check_existing_code, already_connnected, send_help, send_help_user, profile, coming_soon
+from bots.telegram import send_message, send_pair_url, successful_connection, check_existing_user, check_existing_code, already_connnected, send_help, send_help_user, profile, coming_soon, please_pair
 from django.contrib.auth.models import User
 
 
