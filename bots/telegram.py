@@ -52,6 +52,7 @@ _{}_'''.format(title, text, subtitle)
 
 # check if chat_id is registered
 def check_existing_user(chat_id):
+	result = True
 	try:
 		accountCode.objects.get(chat_id=chat_id)
 		result = True
