@@ -5,7 +5,7 @@ from django.contrib.auth import (
 	login,
 	logout
 )
-from django.contrib.auth.decorators import user_passes_test, login_required
+from django.contrib.auth.decorators import user_passes_test
 
 from django.conf import settings
 from django.http import Http404, HttpResponseRedirect, JsonResponse, HttpResponse
@@ -51,6 +51,7 @@ def register_view(request):
 		password = form.cleaned_data.get("password")
 		user.set_password(password)
 		user.save()
+
 		new_user = authenticate(username=user.username, password=password)
 		login(request, new_user)
 		# change redirect to profile page
@@ -99,7 +100,6 @@ def telegram_bot(request):
 
 	return JsonResponse(reply, safe=False)
 
-@user_passes_test(lambda u:u.is_authenticated, login_url=reverse_lazy('login'))
 def connect_telegram(request):
 	# get the code from url
 	verify_code = request.GET.get('key')

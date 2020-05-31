@@ -34,17 +34,19 @@ class accountCode(models.Model):
 class Profile(models.Model):
 	user = models.OneToOneField(User, on_delete=models.CASCADE)
 	phone_number = models.CharField(max_length=12, blank=True, default=None, null=True)
-	bio = models.TextField(max_length=500, blank=True, default=None)
-	chat_id = models.CharField(max_length=20, blank=True, default=None)
+	bio = models.TextField(max_length=500, blank=True)
+	chat_id = models.CharField(max_length=20, blank=True)
 
 	timestamp = models.DateTimeField(auto_now=False, auto_now_add=True)
 	updated = models.DateTimeField(auto_now=True, auto_now_add=False)
 
-@receiver(post_save, sender=User)
+@receiver(post_save, sender=User, dispatch_uid='create_new_user_profile')
 def create_user_profile(sender, instance, created, **kwargs):
+	print("in create_user_profile")
 	if created:
+		print("\n\ninstance ", instance)
 		Profile.objects.create(user=instance)
 
-@receiver(post_save, sender=User)
+@receiver(post_save, sender=User, dispatch_uid='save_new_user_profile')
 def save_user_profile(sender, instance, **kwargs):
 	instance.profile.save()
