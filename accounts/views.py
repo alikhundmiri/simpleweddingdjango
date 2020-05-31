@@ -87,8 +87,7 @@ def telegram_bot(request):
 	if message_text == '/start':
 		reply = send_message('', message_text, '', sender_id)
 	elif message_text == '/pair':
-		link = 'https://www.instagram.com/alicodermaker'
-		reply = send_pair_url(link, sender_id)
+		reply = send_pair_url(sender_id)
 	else:
 		reply = send_message("hey {} {}".format(first_name, last_name), message_text, message_date, sender_id)
 

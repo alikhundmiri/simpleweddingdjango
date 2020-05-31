@@ -17,6 +17,7 @@ For a description of the Bot API, see this page: https://core.telegram.org/bots/
 import os
 import json
 import requests
+from accounts.models import accountCode, Profile
 TELEGRAM_TOKEN = os.environ.get('TELEGRAM_TOKEN')
 print(TELEGRAM_TOKEN)
 
@@ -48,21 +49,47 @@ _{}_'''.format(title, text, subtitle)
 	print(r.text)
 	return(r.text)
 	
-if __name__ == '__main__':
-	send_message("Testing from SimpleWeddingBot", "Please connect to this bot to recieve website updates", "Please reply to continue")
+
+# check if chat_id is registered
+def check_existing_user(chat_id):
+	try:
+		accountCode.objects.get(chat_id=chat_id)
+		result = True
+	except accountCode.DoesNotExist:
+		result = False
+	finally:
+		return(result)
+
+# https://getmakerlog.com/apps/telegram?key=3C1393
+
+# create a new accountCode instance. return verify_code
+def generate_unique_account_code(chat_id):
+	new_instance = accountCode(chat_id=chat_id)
+	new_instance.save()
+	unique_account_code = new_instance.verify_code
+	return unique_account_code
 
 def send_pair_url(link, chat_id):
-	url  = 'https://api.telegram.org/bot{}/sendMessage'.format(TELEGRAM_TOKEN)
-	payload = {"chat_id":chat_id, "text":"📎 Here's your pair link", 'reply_markup': json.dumps({"inline_keyboard": [[{"text":"🔑 Pair", "url": link,}]]}) }
-	print("url ", url)
-	print("payload ", payload)
-	r = requests.post(url, data=payload)
-	
-	print(r.status_code)
-	if r.status_code == 200:
-		print("Message sent!")
-	else:
-		print("some error!")
-	print(r.text)
-	return(r.text)
+	existing_user = check_existing_user(chat_id)
 
+	if existing_user:
+		send_message('', 'This Telegram is already connected', '', chat_id)
+	else:
+		unique_account_code = generate_unique_account_code(chat_id)
+		link = 'https://simpleweddingmovement.herokuapp.com/?key={}'.format(unique_account_code)
+		url  = 'https://api.telegram.org/bot{}/sendMessage'.format(TELEGRAM_TOKEN)
+		payload = {"chat_id":chat_id, "text":"📎 Click on 'Pair', and enter credentials to pair", 'reply_markup': json.dumps({"inline_keyboard": [[{"text":"🔑 Pair", "url": link,}]]}) }
+		print("url ", url)
+		print("payload ", payload)
+		r = requests.post(url, data=payload)
+		
+		print(r.status_code)
+		if r.status_code == 200:
+			print("Message sent!")
+		else:
+			print("some error: ", r.status_code)
+		print(r.text)
+		return(r.text)
+
+if __name__ == '__main__':
+	send_message("Testing from SimpleWeddingBot", "Please connect to this bot to recieve website updates", "Please reply to continue")
