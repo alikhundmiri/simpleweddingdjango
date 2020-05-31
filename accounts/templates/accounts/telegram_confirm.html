@@ -1,0 +1,73 @@
+{% extends 'accounts/admin_base.html' %}
+{% load crispy_forms_tags %}
+{% load markdown_deux_tags %}
+{% load static %}
+
+
+{% block title %}
+Connecting to Telegram {{block.super}}
+{% endblock %}
+
+{% block head_extras %}
+{{ form.media }}
+<!-- Blog editor style -->
+<style type="text/css">
+	.wmd-button-bar{
+		background-color: white !important;
+	}
+	.wmd-spacer{
+
+	}
+	.wmd-panel {
+		margin-left: 0% !important;
+		margin-right: 0% !important;
+		width: 100% !important;
+		min-width: 100% !important;
+
+	}
+	.wmd-preview{
+		display: none;
+	}
+	.content-preview{
+		padding: 10px; 
+	}
+</style>
+{% endblock %}
+
+
+{% block content %}
+<!-- Page Content -->
+<h1 class="mt-4">{{ title }}</h1>
+<ol class="breadcrumb mb-4">
+	<li class="breadcrumb-item">
+		<a href="{% url 'dashboard:admin_dashboard' %}">
+			Dashboard
+		</a>
+	</li>
+	<li class="breadcrumb-item active">{{title}}</li>
+</ol> 
+
+
+
+
+
+<section class="col-lg-12 col-md-12 col-sm-12">
+
+	<div class="row">
+		<div class="col-12">
+			<h2 class="mt-1" style="color: #565656">{% if status %}Successfully Paired{% else %}Failed to Pair{% endif %}</h2>
+			<div class="card">
+				<div class="card-body">
+					{{message}}
+					<br>
+
+					<button onClick="window.location.href = 'https://telegram.me/SimpleWeddingBot'" type="button" class="btn btn-outline-{% if status %}success{% else %}danger{% endif %}">go back to telegram to continue</button>
+
+					
+				</div>
+			</div>
+		</div>
+	</div>
+
+</section>
+{% endblock %}

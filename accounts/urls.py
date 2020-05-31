@@ -39,5 +39,7 @@ urlpatterns = [
 	path('blog/<slug:slug>/review', views.review, name='review_article'),
 
     # users
+    # telegram
+    path('connect_telegram', views.connect_telegram, name='connect_telegram'),
 
 ]

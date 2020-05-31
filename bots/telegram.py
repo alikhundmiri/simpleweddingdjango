@@ -77,7 +77,7 @@ def send_pair_url(chat_id):
 		send_message('', 'This Telegram is already connected', '', chat_id)
 	else:
 		unique_account_code = generate_unique_account_code(chat_id)
-		link = 'https://simpleweddingmovement.herokuapp.com/?key={}'.format(unique_account_code)
+		link = 'https://simpleweddingmovement.herokuapp.com/login/?key={}'.format(unique_account_code)
 		url  = 'https://api.telegram.org/bot{}/sendMessage'.format(TELEGRAM_TOKEN)
 		payload = {"chat_id":chat_id, "text":"📎 Click on 'Pair', and enter credentials to pair", 'reply_markup': json.dumps({"inline_keyboard": [[{"text":"🔑 Pair", "url": link,}]]}) }
 		print("url ", url)
@@ -91,6 +91,21 @@ def send_pair_url(chat_id):
 			print("some error: ", r.status_code)
 		print(r.text)
 		return(r.text)
+
+def successful_connection(chat_id):
+	''' Send message to on telegram '''
+	text_message = '''*Successfully connected*'''
+
+	url  = 'https://api.telegram.org/bot{}/sendMessage'.format(TELEGRAM_TOKEN)
+	payload = {'text': text_message, 'chat_id':chat_id, 'parse_mode':'Markdown'}
+	r = requests.post(url, data=payload)	
+	# if r.status_code == 200:
+	# 	print("Message sent!")
+	# else:
+	# 	print("some error!")
+	# print(r.text)
+	return(r.text)
+
 
 if __name__ == '__main__':
 	send_message("Testing from SimpleWeddingBot", "Please connect to this bot to recieve website updates", "Please reply to continue")

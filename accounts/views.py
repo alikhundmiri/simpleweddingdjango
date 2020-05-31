@@ -5,7 +5,7 @@ from django.contrib.auth import (
 	login,
 	logout
 )
-from django.contrib.auth.decorators import user_passes_test
+from django.contrib.auth.decorators import user_passes_test, login_required
 
 from django.conf import settings
 from django.http import Http404, HttpResponseRedirect, JsonResponse, HttpResponse
@@ -15,11 +15,15 @@ from django.urls import reverse, reverse_lazy
 from django.views.decorators.csrf import csrf_exempt
 
 from .forms import UserLoginForm, UserRegisterForm
+from .models import Profile, accountCode
 from core.forms import ArticleForm, MetaTagForm, ReviewArticle, LinkForm, ReviewLink
 from core.models import Post, catagories
-from bots.telegram import send_message, send_pair_url
+from bots.telegram import send_message, send_pair_url, successful_connection
+from django.contrib.auth.models import User
+
 
 def login_view(request):
+	key = request.GET.get('key')
 	form = UserLoginForm(request.POST or None)
 	if form.is_valid():
 		username = form.cleaned_data.get("username")
@@ -27,7 +31,10 @@ def login_view(request):
 		user = authenticate(username=username, password=password)
 		login(request,user)
 		# change redirect to profile page
-		return redirect(reverse('dashboard:admin_dashboard'))
+		if key:
+			return redirect(reverse('dashboard:connect_telegram') + '?key={}'.format(key))
+		else:
+			return redirect(reverse('dashboard:admin_dashboard'))
 	context = {
 		'title' : 'Please Log in',
 		'sub_title' : 'Enter your credentials',
@@ -57,7 +64,6 @@ def register_view(request):
 		"form":form,
 	}
 	return render(request, 'accounts/login_v2.html', context)
-
 
 def logout_view(request):
 	logout(request)
@@ -93,6 +99,46 @@ def telegram_bot(request):
 
 	return JsonResponse(reply, safe=False)
 
+@user_passes_test(lambda u:u.is_authenticated, login_url=reverse_lazy('login'))
+def connect_telegram(request):
+	# get the code from url
+	verify_code = request.GET.get('key')
+	print(verify_code)	
+	# using the code, get the connected chat_id
+	try:
+		chat_id = accountCode.objects.get(verify_code=verify_code).chat_id
+	
+		# get current user details
+		user = User.objects.get(username=request.user)
+		# update their profile to inclide chat_id
+		user.profile.chat_id = chat_id
+		# save
+		user.save()
+
+		successful_connection(chat_id)
+		# get telegram chat_id connected to key from accounts.accountCode, using verify_code
+		# if not empty. set the Profile.chat_id with this chat_id
+		message = 'Your Simple wedding Account is now linked to this Telegram account.'
+		status = True
+
+	except accountCode.DoesNotExist:
+		chat_id = None
+		message = 'Connection failed. You will soon recieve a new link on telegram.'
+		# alert Superuser.
+		# send new link to connect
+		status = False
+
+	
+
+	context = {
+		'title' : 'Connecting to Telegram',
+		'message' : message,
+		'status' : status,
+		'production' : settings.PRODUCTION,
+
+	}
+
+	return render(request, 'accounts/telegram_confirm.html', context)
 
 # ------------ A D M I N    I N T E R F A C E     P A G E S 
 

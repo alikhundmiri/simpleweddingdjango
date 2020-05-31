@@ -21,7 +21,7 @@ class accountCode(models.Model):
 	updated = models.DateTimeField(auto_now=True, auto_now_add=False)
 
 	def __str__(self):
-		return f'{self.user} {self.verify_code} - {self.user_connected}'
+		return f'{self.chat_id} - {self.verify_code}'
 
 	class Meta:
 		ordering = ["-timestamp", "-updated"]
