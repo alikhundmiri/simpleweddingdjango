@@ -40,6 +40,9 @@ class Profile(models.Model):
 	timestamp = models.DateTimeField(auto_now=False, auto_now_add=True)
 	updated = models.DateTimeField(auto_now=True, auto_now_add=False)
 
+	def __str__(self):
+		return f'{self.user} - {self.chat_id}'
+
 @receiver(post_save, sender=User, dispatch_uid='create_new_user_profile')
 def create_user_profile(sender, instance, created, **kwargs):
 	print("in create_user_profile")

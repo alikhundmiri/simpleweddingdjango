@@ -38,6 +38,10 @@ urlpatterns = [
     path('blog/<slug:slug>/edit', views.edit_blog, name='edit_blog'),
 	path('blog/<slug:slug>/review', views.review, name='review_article'),
 
+
+    path('settings/', views.user_settings, name='user_settings'),
+    path('settings/profile/edit', views.settings_profile_edit, name='settings_profile_edit'),
+
     # users
     # telegram
     path('connect_telegram', views.connect_telegram, name='connect_telegram'),

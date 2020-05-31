@@ -1,3 +1,4 @@
+from .models import Profile
 from django import forms
 from django.contrib.auth import (
     authenticate,
@@ -7,6 +8,19 @@ from django.contrib.auth import (
 )
 
 User = get_user_model()
+
+class ProfileForm(forms.ModelForm):
+    phone_number = forms.CharField(label='Phone Number',widget = forms.TextInput(attrs={'placeholder': 'Please enter your phone number'}))
+    bio = forms.CharField(widget=forms.Textarea(attrs={'placeholder':'Please enter your bio within 500 characters'}))
+    class Meta:
+        model = Profile
+        fields = [
+            'phone_number',
+            'bio',
+        ]
+
+
+
 
 class UserLoginForm(forms.Form):
     username = forms.CharField(label='',widget = forms.TextInput(attrs={'placeholder': 'User Name', 'class':'form-control'}))

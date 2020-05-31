@@ -127,7 +127,6 @@ def profile(chat_id):
 	payload_message = '''
 👤 ABOUT
 Username : {}
-Name : {}
 phone number : {}
 Bio : {}
 
@@ -135,8 +134,8 @@ Bio : {}
 Articles : {}
 Article Ideas : {}
 Links : {}
-	'''.format(username , full_name , phone_number, user_bio, user_articles, user_articles_ideas, user_links)
-	link = 'https://simpleweddingmovement.herokuapp.com/login/'
+	'''.format(username , phone_number, user_bio, user_articles, user_articles_ideas, user_links)
+	link = 'https://simpleweddingmovement.herokuapp.com/dashboard/settings/profile/edit'
 	url  = 'https://api.telegram.org/bot{}/sendMessage'.format(TELEGRAM_TOKEN)
 	payload = {"chat_id":chat_id, "text":payload_message, 'reply_markup': json.dumps({"inline_keyboard": [[{"text":"✍️ Edit", "url": link,}]]}) }
 	r = requests.post(url, data=payload)

@@ -14,7 +14,7 @@ from django.shortcuts import render, redirect
 from django.urls import reverse, reverse_lazy
 from django.views.decorators.csrf import csrf_exempt
 
-from .forms import UserLoginForm, UserRegisterForm
+from .forms import UserLoginForm, UserRegisterForm, ProfileForm
 from .models import Profile, accountCode
 from core.forms import ArticleForm, MetaTagForm, ReviewArticle, LinkForm, ReviewLink
 from core.models import Post, catagories
@@ -69,6 +69,37 @@ def register_view(request):
 def logout_view(request):
 	logout(request)
 	return redirect('/')
+
+@user_passes_test(lambda u:u.is_authenticated, login_url=reverse_lazy('login'))
+def user_settings(request):
+	context = {
+		'title' : 'Settings',
+		'production' : settings.PRODUCTION,
+	}
+	return render(request, 'accounts/user_settings.html', context)
+
+@user_passes_test(lambda u:u.is_authenticated, login_url=reverse_lazy('login'))
+def settings_profile_edit(request):
+	existing_details = Profile.objects.get(user=request.user)
+	print(existing_details)
+	form = ProfileForm(request.POST or None, instance=existing_details)	
+	if form.is_valid():
+		instance = form.save(commit=False)
+		instance.save()
+		# messages.success(request, "Successfully Created")
+		return redirect(reverse('dashboard:user_settings'))
+
+
+	context = {
+		'title' : 'Edit bio',
+		'button_text' : 'Confirm',
+		'blog_title' : 'Edit your profile details',
+		'production' : settings.PRODUCTION,
+		'form' : form,
+	}
+	return render(request, 'accounts/settings_editor.html', context)
+
+
 
 # ------------ T E L E G R A M    B O T
 @csrf_exempt
