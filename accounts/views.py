@@ -18,7 +18,7 @@ from .forms import UserLoginForm, UserRegisterForm
 from .models import Profile, accountCode
 from core.forms import ArticleForm, MetaTagForm, ReviewArticle, LinkForm, ReviewLink
 from core.models import Post, catagories
-from bots.telegram import send_message, send_pair_url, successful_connection
+from bots.telegram import send_message, send_pair_url, successful_connection, check_existing_user, check_existing_code, already_connnected, send_help, send_help_user
 from django.contrib.auth.models import User
 
 
@@ -80,7 +80,7 @@ def telegram_bot(request):
 
 	except json.decoder.JSONDecodeError as err:
 		print("Found no Json. here's your page")
-		return HttpResponse("Welcome, Thanos! Sons of Alars")
+		return HttpResponse("looking for something? Well, it's not here.")
 	
 	# write the code here to use the following data from JSON Response
 	sender_id		= json_message['message']['from'].get('id')
@@ -91,10 +91,33 @@ def telegram_bot(request):
 	first_name		= json_message['message']['from'].get('first_name')
 	last_name		= json_message['message']['from'].get('last_name')
 
+	registered_user = check_existing_user(sender_id)
+	requested_user = check_existing_code(sender_id)
+	
 	if message_text == '/start':
 		reply = send_message('', message_text, '', sender_id)
+	
+	# pair telegram account to website account
 	elif message_text == '/pair':
-		reply = send_pair_url(sender_id)
+		if registered_user:
+			reply = already_connnected(sender_id)
+		else:
+			reply = send_pair_url(sender_id)
+	
+	# view website account profile
+	elif message_text == '/profile':
+		if registered_user:
+			reply = profile(sender_id)
+		else:
+			reply = please_pair(sender_id)
+	
+	# send help
+	elif message_text == '/help':
+		if registered_user:
+			reply = send_help_user(sender_id)
+		else:		
+			reply = send_help(sender_id)
+	
 	else:
 		reply = send_message("hey {} {}".format(first_name, last_name), message_text, message_date, sender_id)
 
@@ -103,7 +126,7 @@ def telegram_bot(request):
 def connect_telegram(request):
 	# get the code from url
 	verify_code = request.GET.get('key')
-	print(verify_code)	
+	# print(verify_code)	
 	# using the code, get the connected chat_id
 	try:
 		chat_id = accountCode.objects.get(verify_code=verify_code).chat_id
@@ -111,13 +134,6 @@ def connect_telegram(request):
 		# get current user details
 		user = User.objects.get(username=request.user)
 
-		try:
-			# print('trying to find json')
-			json_message = json.loads(request.body)
-			print(json_message)
-		except json.decoder.JSONDecodeError as err:
-			print("Found no Json. here's your page")
-			
 
 		# update their profile to inclide chat_id
 		user.profile.chat_id = chat_id
@@ -275,8 +291,8 @@ def blog_meta_description(request, slug=None):
 	else:
 		raise Http404
 	post = Post.objects.get(slug=slug)
-	print(slug)
-	print(post.slug)
+	# print(slug)
+	# print(post.slug)
 	form = MetaTagForm(request.POST or None, instance=post)
 	if form.is_valid():
 		instance = form.save(commit=False)

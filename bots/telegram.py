@@ -19,9 +19,7 @@ import json
 import requests
 from accounts.models import accountCode, Profile
 TELEGRAM_TOKEN = os.environ.get('TELEGRAM_TOKEN')
-print(TELEGRAM_TOKEN)
-
-TELEGRAM_USER_ID = os.environ.get('TELEGRAM_USER_ID')
+SUPERUSER_USER_ID = os.environ.get('TELEGRAM_USER_ID')
 '''
 https://api.telegram.org/botfiajsdv;oijl/setWebhook?url=https://simpleweddingmovement.herokuapp.com/tbot
 https://api.telegram.org/botdslijv;dlijv/getWebhookInfo
@@ -37,21 +35,31 @@ _{}_'''.format(title, text, subtitle)
 	url  = 'https://api.telegram.org/bot{}/sendMessage'.format(TELEGRAM_TOKEN)
 	payload = {'text': text_message, 'chat_id':chat_id, 'parse_mode':'Markdown'}
 	
-	print("url ", url)
-	print("payload ", payload)
+	# print("url ", url)
+	# print("payload ", payload)
 	r = requests.post(url, data=payload)
 	
-	print(r.status_code)
-	if r.status_code == 200:
-		print("Message sent!")
-	else:
-		print("some error!")
-	print(r.text)
+	# print(r.status_code)
+	# if r.status_code == 200:
+	# 	print("Message sent!")
+	# else:
+	# 	print("some error!")
+	# print(r.text)
 	return(r.text)
 	
 
 # check if chat_id is registered
 def check_existing_user(chat_id):
+	result = True
+	try:
+		Profile.objects.get(chat_id=chat_id)
+		result = True
+	except Profile.DoesNotExist:
+		result = False
+	finally:
+		return(result)
+
+def check_existing_code(chat_id):
 	result = True
 	try:
 		accountCode.objects.get(chat_id=chat_id)
@@ -61,6 +69,10 @@ def check_existing_user(chat_id):
 	finally:
 		return(result)
 
+def get_user_detail(chat_id):
+	user = Profile.objects.get(chat_id=chat_id)
+	return user
+	
 # https://getmakerlog.com/apps/telegram?key=3C1393
 
 # create a new accountCode instance. return verify_code
@@ -71,39 +83,116 @@ def generate_unique_account_code(chat_id):
 	return unique_account_code
 
 def send_pair_url(chat_id):
-	existing_user = check_existing_user(chat_id)
-
-	if existing_user:
-		send_message('', 'This Telegram is already connected', '', chat_id)
-	else:
-		unique_account_code = generate_unique_account_code(chat_id)
-		link = 'https://simpleweddingmovement.herokuapp.com/login/?key={}'.format(unique_account_code)
-		url  = 'https://api.telegram.org/bot{}/sendMessage'.format(TELEGRAM_TOKEN)
-		payload = {"chat_id":chat_id, "text":"📎 Click on 'Pair', and enter credentials to pair", 'reply_markup': json.dumps({"inline_keyboard": [[{"text":"🔑 Pair", "url": link,}]]}) }
-		print("url ", url)
-		print("payload ", payload)
-		r = requests.post(url, data=payload)
-		
-		print(r.status_code)
-		if r.status_code == 200:
-			print("Message sent!")
-		else:
-			print("some error: ", r.status_code)
-		print(r.text)
-		return(r.text)
+	unique_account_code = generate_unique_account_code(chat_id)
+	link = 'https://simpleweddingmovement.herokuapp.com/login/?key={}'.format(unique_account_code)
+	url  = 'https://api.telegram.org/bot{}/sendMessage'.format(TELEGRAM_TOKEN)
+	payload = {"chat_id":chat_id, "text":"📎 Click on 'Pair', and your login credentials", 'reply_markup': json.dumps({"inline_keyboard": [[{"text":"🔑 Pair", "url": link,}]]}) }
+	r = requests.post(url, data=payload)
+	return(r.text)
 
 def successful_connection(chat_id):
 	''' Send message to on telegram '''
 	text_message = '''*Successfully connected*'''
-
 	url  = 'https://api.telegram.org/bot{}/sendMessage'.format(TELEGRAM_TOKEN)
 	payload = {'text': text_message, 'chat_id':chat_id, 'parse_mode':'Markdown'}
 	r = requests.post(url, data=payload)	
-	# if r.status_code == 200:
-	# 	print("Message sent!")
-	# else:
-	# 	print("some error!")
-	# print(r.text)
+	return(r.text)
+
+def please_pair(chat_id):
+	''' Send message to on telegram '''
+	text_message = '''*Please /pair to use this feature*'''
+	url  = 'https://api.telegram.org/bot{}/sendMessage'.format(TELEGRAM_TOKEN)
+	payload = {'text': text_message, 'chat_id':chat_id, 'parse_mode':'Markdown'}
+	r = requests.post(url, data=payload)
+	return(r.text)
+
+def already_connnected(chat_id):
+	''' Send message to on telegram '''
+	text_message = '''*Please /pair to use this feature*'''
+	url  = 'https://api.telegram.org/bot{}/sendMessage'.format(TELEGRAM_TOKEN)
+	payload = {'text': text_message, 'chat_id':chat_id, 'parse_mode':'Markdown'}
+	r = requests.post(url, data=payload)
+	return(r.text)
+
+def profile(chat_id):
+	payload_message = '''
+	👤 ABOUT
+	Username : {}
+	Name : {}
+	Bio : {}
+	phone number : {}
+
+	👤 ACTIVITIES
+	Articles : {}
+	Article Ideas : {}
+	Links : {}
+
+	'''.format('username' , 'first name last name' ,'User bio', 'phone number', '0', '0', '0')
+	link = 'https://simpleweddingmovement.herokuapp.com/login/'
+	url  = 'https://api.telegram.org/bot{}/sendMessage'.format(TELEGRAM_TOKEN)
+	payload = {"chat_id":chat_id, "text":payload_message, 'reply_markup': json.dumps({"inline_keyboard": [[{"text":"✍️ Edit", "url": link,}]]}) }
+	r = requests.post(url, data=payload)
+	return(r.text)
+
+def send_help(chat_id):
+	text_message = '''
+I'm SimpleWeddingBot, your friendly telegram help.
+I'll help you manage your account on Simple Wedding Movement website
+
+My task is to encourage you to be more active on the website
+You're not logged in.
+
+
+To begin login, you need to /pair
+
+After logging in, you can
+👉 View your account status. (Visitor, Writer, Admin)
+👉 View and edit your Name, Phone number and Bio
+👉 Disconnect your SWM account from Telegram
+
+To begin login, you need to /pair
+	'''.format(user.user.get_full_name)
+	url  = 'https://api.telegram.org/bot{}/sendMessage'.format(TELEGRAM_TOKEN)
+	payload = {'text': text_message, 'chat_id':chat_id, 'parse_mode':'Markdown'}
+	r = requests.post(url, data=payload)
+	return(r.text)
+
+def send_help_user(chat_id):
+	user = get_user_detail(chat_id)
+	text_message = '''
+I'm SimpleWeddingBot, your friendly telegram help.
+I'll help you manage your account on Simple Wedding Movement website
+
+My task is to encourage you to be more active on the website
+You're logged in as {} on Simple Wedding Movement Site.
+
+
+Your Account:
+
+/mystatus 
+View your account status. (Visitor, Writer, Admin)
+/profile
+View your account details like Name, Phone number and Bio
+/editprofile
+Edit your account details like Name, Phone number and Bio
+
+
+Authentication:  
+
+/pair
+Connect to my SWM website
+/unpair
+Disconnect your SWM account from Telegram
+
+
+Other:  
+
+/help
+Read this again
+	'''.format(user.user.get_full_name)
+	url  = 'https://api.telegram.org/bot{}/sendMessage'.format(TELEGRAM_TOKEN)
+	payload = {'text': text_message, 'chat_id':chat_id, 'parse_mode':'Markdown'}
+	r = requests.post(url, data=payload)
 	return(r.text)
 
 
