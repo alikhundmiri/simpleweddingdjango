@@ -112,7 +112,7 @@ def fetch_details_from_link(link):
 	# if youtube, detail = video_id
 	o = urlparse(link)
 	# if it is, then return different values
-	print(o.netloc)
+	# print(o.netloc)
 	if o.netloc == "youtube.com" or "www.youtube.com" or "youtu.be": #<- netloc returns the domain name
 		description = 'youtube'
 
@@ -121,7 +121,7 @@ def fetch_details_from_link(link):
 		else:
 			detail = o.path.replace('/','') #<-- https://youtu.be/nxf41fMX_Y4 [/nxf41fMX_Y4]
 
-		print("detail", detail)
+		# print("detail", detail)
 	else:
 		description = soup.find("meta",  property="og:description")["content"]
 		detail = 'empty'

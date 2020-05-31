@@ -56,7 +56,7 @@ def register_view(request):
 		login(request, new_user)
 		# change redirect to profile page
 		# return redirect("/")
-		return redirect(reverse('dashboard:admin_dashboard'))
+		return redirect(reverse('dashboard:settings_profile_edit') + '?next=setup')
 	context = {
 		'title' : 'Register New Account',
 		'sub_title' : 'Welcome to the community. Please fill the form to create your account',
@@ -80,14 +80,18 @@ def user_settings(request):
 
 @user_passes_test(lambda u:u.is_authenticated, login_url=reverse_lazy('login'))
 def settings_profile_edit(request):
+	next_page = request.GET.get('next')
+
 	existing_details = Profile.objects.get(user=request.user)
 	form = ProfileForm(request.POST or None, instance=existing_details)	
 	if form.is_valid():
 		instance = form.save(commit=False)
 		instance.save()
 		# messages.success(request, "Successfully Created")
-		return redirect(reverse('dashboard:user_settings'))
-
+		if next_page == 'setup':
+			return redirect(reverse('dashboard:new'))
+		else:
+			return redirect(reverse('dashboard:user_settings'))
 
 	context = {
 		'title' : 'Edit bio',

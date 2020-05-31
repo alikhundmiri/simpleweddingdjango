@@ -61,6 +61,18 @@
 	<!-- Custom styles for this template -->
 	<link href="{% static 'base_v2/blog.css' %}" rel="stylesheet">
 
+	{% if production %}
+	<!-- Global site tag (gtag.js) - Google Analytics -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-158060116-1"></script>
+	<script>
+		window.dataLayer = window.dataLayer || [];
+		function gtag(){dataLayer.push(arguments);}
+		gtag('js', new Date());
+
+		gtag('config', 'UA-158060116-1');
+	</script>
+	{% endif %}
+
 </head>
 <body>
 	<div class="container">

@@ -14,13 +14,25 @@
 		<meta name="description" content="" />
 		<meta name="author" content="" />
 
-		<title>{% block title %}| Admin | Simple Wedding Movement{% endblock %}</title>
+		<title>{% block title %}| Simple Wedding Movement | Admin{% endblock %}</title>
 
 		<link href="{% static 'admin_v2/dist/css/styles.css' %}" rel="stylesheet" />
 
 		<link href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css" rel="stylesheet" crossorigin="anonymous" />
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/js/all.min.js" crossorigin="anonymous"></script>
 		{% block head_extras %}{% endblock %}
+
+		{% if production %}
+		<!-- Global site tag (gtag.js) - Google Analytics -->
+		<script async src="https://www.googletagmanager.com/gtag/js?id=UA-158060116-1"></script>
+		<script>
+			window.dataLayer = window.dataLayer || [];
+			function gtag(){dataLayer.push(arguments);}
+			gtag('js', new Date());
+
+			gtag('config', 'UA-158060116-1');
+		</script>
+		{% endif %}
 
 	</head>
 
