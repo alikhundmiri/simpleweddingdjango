@@ -106,9 +106,18 @@ def please_pair(chat_id):
 	r = requests.post(url, data=payload)
 	return(r.text)
 
+def coming_soon(chat_id):
+	''' Send message to on telegram '''
+	text_message = '''*This feature is coming soon*'''
+	url  = 'https://api.telegram.org/bot{}/sendMessage'.format(TELEGRAM_TOKEN)
+	payload = {'text': text_message, 'chat_id':chat_id, 'parse_mode':'Markdown'}
+	r = requests.post(url, data=payload)
+	return(r.text)
+
 def already_connnected(chat_id):
 	''' Send message to on telegram '''
-	text_message = '''*Please /pair to use this feature*'''
+	text_message = '''*You are already paired up.* 
+To know all functionalities, /help'''
 	url  = 'https://api.telegram.org/bot{}/sendMessage'.format(TELEGRAM_TOKEN)
 	payload = {'text': text_message, 'chat_id':chat_id, 'parse_mode':'Markdown'}
 	r = requests.post(url, data=payload)

@@ -18,7 +18,7 @@ from .forms import UserLoginForm, UserRegisterForm, ProfileForm
 from .models import Profile, accountCode
 from core.forms import ArticleForm, MetaTagForm, ReviewArticle, LinkForm, ReviewLink
 from core.models import Post, catagories
-from bots.telegram import send_message, send_pair_url, successful_connection, check_existing_user, check_existing_code, already_connnected, send_help, send_help_user, profile
+from bots.telegram import send_message, send_pair_url, successful_connection, check_existing_user, check_existing_code, already_connnected, send_help, send_help_user, profile, coming_soon
 from django.contrib.auth.models import User
 
 
@@ -81,7 +81,6 @@ def user_settings(request):
 @user_passes_test(lambda u:u.is_authenticated, login_url=reverse_lazy('login'))
 def settings_profile_edit(request):
 	existing_details = Profile.objects.get(user=request.user)
-	print(existing_details)
 	form = ProfileForm(request.POST or None, instance=existing_details)	
 	if form.is_valid():
 		instance = form.save(commit=False)
@@ -139,6 +138,13 @@ def telegram_bot(request):
 	elif message_text == '/profile':
 		if registered_user:
 			reply = profile(sender_id)
+		else:
+			reply = please_pair(sender_id)
+	
+	# feature coming soon
+	elif message_text == '/unpair' or '/mystatus' or '/editprofile':
+		if registered_user:
+			reply = coming_soon(sender_id)
 		else:
 			reply = please_pair(sender_id)
 	
