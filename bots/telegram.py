@@ -69,7 +69,7 @@ def generate_unique_account_code(chat_id):
 	unique_account_code = new_instance.verify_code
 	return unique_account_code
 
-def send_pair_url(link, chat_id):
+def send_pair_url(chat_id):
 	existing_user = check_existing_user(chat_id)
 
 	if existing_user:
