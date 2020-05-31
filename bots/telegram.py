@@ -161,10 +161,12 @@ def send_help_user(chat_id):
 	user = get_user_detail(chat_id)
 	text_message = '''
 I'm SimpleWeddingBot, your friendly telegram help.
+
+You're logged in as {} on Simple Wedding Movement Site.
+
 I'll help you manage your account on Simple Wedding Movement website
 
 My task is to encourage you to be more active on the website
-You're logged in as {} on Simple Wedding Movement Site.
 
 
 Your Account:
@@ -189,7 +191,7 @@ Other:
 
 /help
 Read this again
-	'''.format(user.user.get_full_name)
+	'''.format(user.user)
 	url  = 'https://api.telegram.org/bot{}/sendMessage'.format(TELEGRAM_TOKEN)
 	payload = {'text': text_message, 'chat_id':chat_id, 'parse_mode':'Markdown'}
 	r = requests.post(url, data=payload)
