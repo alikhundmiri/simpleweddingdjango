@@ -73,9 +73,9 @@ def logout_view(request):
 # ------------ T E L E G R A M    B O T
 @csrf_exempt
 def telegram_bot(request):
-	print('recieve the message.')
+	# print('recieve the message.')
 	try:
-		print('trying to find json')
+		# print('trying to find json')
 		json_message = json.loads(request.body)
 
 	except json.decoder.JSONDecodeError as err:
@@ -110,6 +110,15 @@ def connect_telegram(request):
 	
 		# get current user details
 		user = User.objects.get(username=request.user)
+
+		try:
+			# print('trying to find json')
+			json_message = json.loads(request.body)
+			print(json_message)
+		except json.decoder.JSONDecodeError as err:
+			print("Found no Json. here's your page")
+			
+
 		# update their profile to inclide chat_id
 		user.profile.chat_id = chat_id
 		# save
