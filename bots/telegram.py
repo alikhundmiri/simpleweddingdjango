@@ -53,7 +53,7 @@ if __name__ == '__main__':
 
 def send_pair_url(link, chat_id):
 	url  = 'https://api.telegram.org/bot{}/sendMessage'.format(TELEGRAM_TOKEN)
-	payload = {"chat_id":chat_id, "text":"📎 Here's your pair link", reply_markup: json.dumps({"inline_keyboard": [[{"text":"🔑 Pair", "url": link,}]]}) }
+	payload = {"chat_id":chat_id, "text":"📎 Here's your pair link", 'reply_markup': json.dumps({"inline_keyboard": [[{"text":"🔑 Pair", "url": link,}]]}) }
 	print("url ", url)
 	print("payload ", payload)
 	r = requests.post(url, data=payload)
