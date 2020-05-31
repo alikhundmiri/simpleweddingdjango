@@ -117,8 +117,7 @@ def already_connnected(chat_id):
 def profile(chat_id):
 	user = get_user_detail(chat_id)
 	username = user.user
-	# first_name = user.user__get_first_name
-	# last_name
+	full_name = user.user.get_full_name()
 	user_bio = user.bio if user.bio is not None else None
 	phone_number = user.phone_number if user.phone_number is not None else None
 	user_articles = 0
@@ -126,18 +125,17 @@ def profile(chat_id):
 	user_links = 0
 
 	payload_message = '''
-	👤 ABOUT
-	Username : {}
-	Name : {}
-	Bio : {}
-	phone number : {}
+👤 ABOUT
+Username : {}
+Name : {}
+phone number : {}
+Bio : {}
 
-	👤 ACTIVITIES
-	Articles : {}
-	Article Ideas : {}
-	Links : {}
-
-	'''.format(username , 'first name last name' , user_bio, phone_number, user_articles, user_articles_ideas, user_links)
+✏️ ACTIVITIES
+Articles : {}
+Article Ideas : {}
+Links : {}
+	'''.format(username , full_name , phone_number, user_bio, user_articles, user_articles_ideas, user_links)
 	link = 'https://simpleweddingmovement.herokuapp.com/login/'
 	url  = 'https://api.telegram.org/bot{}/sendMessage'.format(TELEGRAM_TOKEN)
 	payload = {"chat_id":chat_id, "text":payload_message, 'reply_markup': json.dumps({"inline_keyboard": [[{"text":"✍️ Edit", "url": link,}]]}) }
