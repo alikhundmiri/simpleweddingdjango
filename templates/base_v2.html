@@ -25,7 +25,14 @@
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 
 	{% block head_extras %}{% endblock %}
+	<link href="https://fonts.googleapis.com/css2?family=Katibeh&display=swap" rel="stylesheet">
 	<style type="text/css">
+
+		.arabic-text{
+			font-family: 'Katibeh', cursive;
+			font-size: 40px;
+		}
+
 		.bd-placeholder-img {
 			font-size: 1.125rem;
 			text-anchor: middle;
@@ -123,16 +130,62 @@
 	<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 	<script src='https://cdnjs.cloudflare.com/ajax/libs/showdown/1.9.0/showdown.min.js' type="text/javascript"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/2.0.11/purify.min.js" type="text/javascript"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
 
 	<script type="text/javascript">
 		$(document).ready(function(){
+			// convert Q2:255 mentions into quran text.
+			// DONE 1. use regex to find all mentions
+			// DONE 2. get the numbers 2:225
+			// DONE 3. fetch API http://api.alquran.cloud/v1/ayah/2:255
+			// 4. store api into custom DM
+			// DONE 5. replace text Q2:255 into arabic text
+			var quran_regex = /Q([0-9]:[0-9])\w+/g;
+
+			// document.body.innerHTML = document.body.innerHTML.replace(quran_regex, "Quran text here");
+			
+			// ENABLE THIS TO TEST
+			// document.body.innerHTML = document.body.innerHTML.replace(quran_regex, aiyath_writer);
+
+			function aiyath_writer(aiyath) {
+				// within the function, start a fetch api
+				var arabic_text;
+				// an ajax api fetch
+				$.ajax({
+
+					type: "GET", // set the type, url and dataType
+					async: false,
+					url: 'http://api.alquran.cloud/v1/ayah/'+aiyath.replace(/[Q]/,''),
+					dataType: "json",
+					// if success, do the following function
+					success: function (data) {
+						arabic_text = data['data']['text']
+						console.log(arabic_text); // <= this works
+						
+					},
+					// if error, log it.
+					error: function (error) {
+						console.log(error);
+						return error;
+					}
+				});
+				
+				return_format = '<p class="arabic-text" dir="rtl" lang="ar">'+arabic_text+'</p>'
+				
+				return return_format
+			}
+
+
 			// making the content space full height. fill up device;'s space.
 			var screen_height = screen.height + "px";
-			console.log(screen_height);
+			// console.log(screen_height);
 			document.getElementById("content").style.minHeight = screen_height;
 
 			// content markdown for blogs details and blog editor preview
 			$('.content-markdown').each(function(){
+
+
+
 				var content = $(this).text()
 				// console.log(content);
 				var converter = new showdown.Converter();

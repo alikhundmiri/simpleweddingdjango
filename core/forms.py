@@ -1,6 +1,7 @@
 from django import forms
 from .models import Post, catagories
 from pagedown.widgets import PagedownWidget
+from django.core.validators import URLValidator
 
 
 

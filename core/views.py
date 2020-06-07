@@ -1,7 +1,3 @@
-import requests
-from bs4 import BeautifulSoup
-from urllib.parse import urlparse
-
 from django.conf import settings
 # from django.contrib.admin.views.decorators import staff_member_required
 from django.contrib.auth.decorators import user_passes_test
@@ -65,12 +61,19 @@ def article(request, slug=None):
 		if request.user==article.user or request.user.is_staff:
 			editable = True
 
+	# check article is link
+	
+
 	context = {
 		'production' : settings.PRODUCTION,
 		'article' : article,
 		'editable' : editable,
 	}
-	return render(request, 'core/blog_v2_detail.html', context)
+	if article.meta_description == 'youtube':
+		return render(request, 'core/blog_v2_youtube.html', context)
+	else:
+		return render(request, 'core/blog_v2_detail.html', context)		
+
 
 # TODO
 # DONE Show all blog by user
@@ -96,35 +99,4 @@ def user_article(request, username=None):
 		# 'editable' : editable,
 	}
 	return render(request, 'core/blog_list.html', context)
-
-# ------------ O T H E R     F U N C T I O N S
-
-# TODO
-# fall back for case where og:title and og:description are not used
-def fetch_details_from_link(link):
-	r = requests.get(link)
-	soup = BeautifulSoup(r.text, features="lxml")	
-
-
-	title = soup.find("meta",  property="og:title")["content"]
-	# check if link is of youtube
-	# if youtube, description = 'youtube'
-	# if youtube, detail = video_id
-	o = urlparse(link)
-	# if it is, then return different values
-	# print(o.netloc)
-	if o.netloc == "youtube.com" or "www.youtube.com" or "youtu.be": #<- netloc returns the domain name
-		description = 'youtube'
-
-		if o.query:
-			detail = o.query.replace('v=','') #<-- https://www.youtube.com/watch?v=nxf41fMX_Y4 [v=nxf41fMX_Y4 ]
-		else:
-			detail = o.path.replace('/','') #<-- https://youtu.be/nxf41fMX_Y4 [/nxf41fMX_Y4]
-
-		# print("detail", detail)
-	else:
-		description = soup.find("meta",  property="og:description")["content"]
-		detail = 'empty'
-
-	return title, description, detail
 

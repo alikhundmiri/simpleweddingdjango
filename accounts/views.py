@@ -1,4 +1,7 @@
 import json
+import requests
+from bs4 import BeautifulSoup
+from urllib.parse import urlparse
 from django.contrib.auth import (
 	authenticate,
 	get_user_model,
@@ -397,4 +400,44 @@ def review(request, slug=None):
 		'form' : form,
 	}
 	return render(request, 'accounts/blog_editor.html', context)
+
+# ------------ O T H E R     F U N C T I O N S
+
+# TODO
+# fall back for case where og:title and og:description are not used
+def fetch_details_from_link(link):
+	r = requests.get(link)
+	soup = BeautifulSoup(r.text, features="lxml")	
+
+
+	title = soup.title.string
+	# check if link is of youtube
+	# if youtube, description = 'youtube'
+	# if youtube, detail = video_id
+	o = urlparse(link)
+	# if it is, then return different values
+	# print(o.netloc)
+	# print(type(o.netloc))
+	youtube_urls = ["youtube.com", "www.youtube.com", "youtu.be"]
+	if o.netloc not in youtube_urls: #<- netloc returns the domain name
+		
+		try:
+			description = soup.find("meta",  property="og:description")["content"]
+		except Exception as e:
+			description = title
+		
+		detail = 'empty'
+
+	else:
+		description = 'youtube'
+		# TODO: strip time stamp from video
+		if o.query:
+			detail = o.query.replace('v=','') #<-- https://www.youtube.com/watch?v=nxf41fMX_Y4 [v=nxf41fMX_Y4 ]
+		else:
+			detail = o.path.replace('/','') #<-- https://youtu.be/nxf41fMX_Y4 [/nxf41fMX_Y4]
+
+	# print('description', description)
+	# print('detail', detail)
+
+	return title, description, detail
 
