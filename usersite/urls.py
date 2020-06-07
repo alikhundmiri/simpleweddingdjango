@@ -21,7 +21,7 @@ from django.conf.urls.static import static
 
 
 from django.views.generic.base import TemplateView
-from core.views import catagory_api, post_api
+from core.views import post_api, quran_api#, catagory_api
 
 from accounts.views import (login_view, logout_view, register_view, telegram_bot)
 
@@ -29,22 +29,24 @@ from rest_framework import routers
 from rest_framework.authtoken.views import obtain_auth_token
 
 router = routers.DefaultRouter()
-router.register('category', catagory_api, basename='catagory_api')
+# router.register('category', catagory_api, basename='catagory_api')
 router.register('post', post_api, basename='post_api')
+router.register('quran', quran_api, basename='quran_api')
 
-# QURAN Support:
+# DONE QURAN Support:
 # use this to add dynamic arabic support --> https://alquran.cloud/api
-# 1. anywhere on the website users can say something like [Q!2:255] or Q!2:255
+# 1. anywhere on the website users can say something like Q2:255
 # 2. Javascript will take this special case, take out '2:255'
 # 3. fetch API request to http://api.alquran.cloud/v1/ayah/2:255
 # 4. read the response, and 
-# 5. write the arabic text replacing [Q!2:255]
+# 5. write the arabic text replacing Q2:255
 
 urlpatterns = [
     path('', include('core.urls', namespace='core')),
     
     # VISITOR INTERFACE
     path('api/', include(router.urls)),
+    path('api-auth/', include('rest_framework.urls')),
     path('api-token-auth/', obtain_auth_token, name='api-token-auth'),    
     
     path('faq_v1/', TemplateView.as_view(template_name='faq.html'), name='faq_v1'),

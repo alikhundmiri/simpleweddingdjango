@@ -9,18 +9,23 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse, reverse_lazy
 
 # importing views
-from .models import Post, catagories
+from .models import Post, catagories, quran
 from .forms import ArticleForm, MetaTagForm, ReviewArticle, LinkForm, ReviewLink
 
 # rest framework stuff
 from rest_framework import viewsets
 
 
-from .serializers import CatagorySerializer, PostSerializer
+from .serializers import CatagorySerializer, PostSerializer, QuranSerializer
 
-class catagory_api(viewsets.ModelViewSet):
-	queryset = catagories.objects.all()
-	serializer_class = CatagorySerializer
+class quran_api(viewsets.ModelViewSet):
+	# add serializer from QuranSerializer
+	queryset = quran.objects.all()
+	serializer_class = QuranSerializer
+
+# class catagory_api(viewsets.ModelViewSet):
+# 	queryset = catagories.objects.all()
+# 	serializer_class = CatagorySerializer
 
 class post_api(viewsets.ModelViewSet):
 	queryset = Post.objects.all()

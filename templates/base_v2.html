@@ -145,7 +145,7 @@
 			// document.body.innerHTML = document.body.innerHTML.replace(quran_regex, "Quran text here");
 			
 			// ENABLE THIS TO TEST
-			// document.body.innerHTML = document.body.innerHTML.replace(quran_regex, aiyath_writer);
+			document.body.innerHTML = document.body.innerHTML.replace(quran_regex, aiyath_writer);
 
 			function aiyath_writer(aiyath) {
 				// within the function, start a fetch api
@@ -154,7 +154,9 @@
 				$.ajax({
 
 					type: "GET", // set the type, url and dataType
-					async: false,
+					async: false, // solved the async issue with this short solution. refer the same page to get complete clarity.
+					// https://stackoverflow.com/questions/13848123/jquery-return-value-undefined
+					
 					url: 'http://api.alquran.cloud/v1/ayah/'+aiyath.replace(/[Q]/,''),
 					dataType: "json",
 					// if success, do the following function

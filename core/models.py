@@ -10,6 +10,49 @@ from django.utils.text import slugify
 from core.utils import random_string_generator
 from django.utils.text import Truncator
 
+
+class quran(models.Model):
+    timestamp = models.DateTimeField(auto_now=False, auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True, auto_now_add=False)
+    
+    # a counter to see how many times each aiyath is requested
+    request = models.IntegerField(default=0)
+    
+    # aiyath number. surah 2 and aiyath 1 will be 8. because surah fatiha has 7 aiyath
+    aiyath_number = models.IntegerField() #<- use this to get quran audio url
+    
+    # quran aiyath
+    text = models.CharField(max_length=7000) #<= the longest aiyah (2:282) is 1200 char long in arabic. and 6300 long in byte text. not sure which willbe used to share here 
+    
+    # quran audio
+    audio_64 = models.CharField(max_length=100)
+    audio_128 = models.CharField(max_length=100)
+
+    surah_number = models.IntegerField()
+    surah_name = models.CharField(max_length=200)
+    surah_englishName = models.CharField(max_length=100)
+    surah_englishNameTranslation = models.CharField(max_length=500)
+    surah_numberOfAyahs = models.IntegerField() 
+    surah_revelationType = models.CharField(max_length=100)
+
+    # aiyath number
+    numberInSurah = models.IntegerField()
+    juz = models.IntegerField()
+    manzil = models.IntegerField()
+    page = models.IntegerField()
+    ruku = models.IntegerField()
+    hizbQuarter = models.IntegerField()
+    sajda = models.BooleanField(default=False)
+
+    def __str__(self):
+        return str(self.surah_englishName) + ":" + str(self.numberInSurah)
+
+    # def get_absolute_url(self):
+    #     return reverse("blogs:detail", kwargs={"slug" : self.slug})
+
+    class Meta:
+        ordering = ["-timestamp", "-updated"]
+
 # Create your models here.
 default_meta_description = 'Please enter meta description for better visibility'
 class catagories(models.Model):

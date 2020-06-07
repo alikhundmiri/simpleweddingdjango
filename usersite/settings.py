@@ -25,7 +25,7 @@ TELEGRAM_TOKEN = os.environ.get('TELEGRAM_TOKEN')
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 PRODUCTION = True
 
 
@@ -99,7 +99,7 @@ WSGI_APPLICATION = 'usersite.wsgi.application'
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES' : (
         'rest_framework.authentication.TokenAuthentication',
-        # 'rest_framework.authentication.BasicAuthentication',
+        'rest_framework.authentication.BasicAuthentication',
         ),
     'DEFAULT_PERMISSION_CLASSES' : (
         # 'rest_framework.permissions.IsAuthenticated',
