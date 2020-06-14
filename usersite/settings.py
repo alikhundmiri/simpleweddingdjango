@@ -25,7 +25,7 @@ TELEGRAM_TOKEN = os.environ.get('TELEGRAM_TOKEN')
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 PRODUCTION = True
 
 

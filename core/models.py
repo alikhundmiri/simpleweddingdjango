@@ -15,6 +15,7 @@ class quran(models.Model):
     timestamp = models.DateTimeField(auto_now=False, auto_now_add=True)
     updated = models.DateTimeField(auto_now=True, auto_now_add=False)
     
+    slug = models.CharField(max_length=10, unique=True)
     # a counter to see how many times each aiyath is requested
     request = models.IntegerField(default=0)
     
@@ -47,11 +48,18 @@ class quran(models.Model):
     def __str__(self):
         return str(self.surah_englishName) + ":" + str(self.numberInSurah)
 
+    def save(self, *args, **kwargs):
+        self.slug = str(self.surah_number) +"-"+ str(self.numberInSurah)
+        super(quran, self).save(*args, **kwargs) # Call the "real" save() method.
+
+    def existing_slug(self, *args, **kwargs):
+        return str(self.surah_number) +":"+ str(self.numberInSurah)
     # def get_absolute_url(self):
     #     return reverse("blogs:detail", kwargs={"slug" : self.slug})
 
     class Meta:
         ordering = ["-timestamp", "-updated"]
+        # unique_together = ('surah_number', 'numberInSurah')        
 
 # Create your models here.
 default_meta_description = 'Please enter meta description for better visibility'

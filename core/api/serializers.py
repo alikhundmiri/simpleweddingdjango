@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import catagories, Post, quran
+from core.models import catagories, Post, quran
 
 class CatagorySerializer(serializers.ModelSerializer):
 	class Meta:
@@ -14,28 +14,7 @@ class PostSerializer(serializers.ModelSerializer):
 class QuranSerializer(serializers.ModelSerializer):
 	class Meta:
 		model = quran
-		fields = [
-			'id',
-			'request',
-			'slug',
-			'aiyath_number',
-			'text',
-			'audio_64',
-			'audio_128',
-			'surah_number',
-			'surah_name',
-			'surah_englishName',
-			'surah_englishNameTranslation',
-			'surah_numberOfAyahs',
-			'surah_revelationType',
-			'numberInSurah',
-			'juz',
-			'manzil',
-			'page',
-			'ruku',
-			'hizbQuarter',
-			'sajda'
-		]
+		fields = ('id', 'request', 'slug', 'aiyath_number', 'text', 'audio_64', 'audio_128', 'surah_number', 'surah_name', 'surah_englishName', 'surah_englishNameTranslation', 'surah_numberOfAyahs', 'surah_revelationType', 'numberInSurah', 'juz', 'manzil', 'page', 'ruku', 'hizbQuarter', 'sajda')
 	# add code here to make this get_or_create
 	# get using the ____ what?
 	# def create(self, validated_data):
